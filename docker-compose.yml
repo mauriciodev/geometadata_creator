@@ -1,13 +1,14 @@
 version: '3.3'
 services:
-    gmd_creator: #this is the main django app
+    gmd_creator: #this is the main django app. Check django_db_setup.sh to create the admin and populate the database.
+        container_name: gmd_creator
         build:
             context: .
             target: gmd_creator
         ports:
             - '8000:8000'
 
-        volumes: #this volume was added for development purposes. Django can reload after file changes.
+        volumes: #these volumes were added for development purposes. Django can reload after file changes.
             - '${PWD}:/app'
 
     nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
@@ -15,8 +16,8 @@ services:
         ports:
             - '80:80'
             - '443:443'
-        volumes:
-            - '${PWD}/configs/nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro'
+        #volumes:
+            #- '${PWD}/configs/nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro'
             #- '/var/run/docker.sock:/tmp/docker.sock:ro'
             #- '/etc/apache2/ssl:/etc/nginx/certs'
         restart: always
@@ -33,12 +34,12 @@ services:
         #ports:
             #- '8088:8000'
         volumes:
-            - '${PWD}/configs/pycsw.cfg:/etc/pycsw/pycsw.cfg:ro'
+            #- '${PWD}/configs/pycsw.cfg:/etc/pycsw/pycsw.cfg:ro'
             - '${PWD}/logs/pycsw/:/var/log/pycsw/'
         restart: always
         environment:
-            POSTGRES_PASSWORD: test
-            POSTGRES_USER: postgres
+            #POSTGRES_PASSWORD: test
+            #POSTGRES_USER: postgres
             PYCSW_SERVER_URL: http://localhost:8000
         logging:
             options:
