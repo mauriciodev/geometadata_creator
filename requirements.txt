@@ -4,3 +4,4 @@ markdown
 django-filter #Filters for rest framework.
 django-guardian  #Object-level permission for rest framework.
 owslib #OGC services client. Mainly CSW.
+django-simple-history
