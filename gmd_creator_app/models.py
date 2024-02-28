@@ -15,9 +15,14 @@ class geospatial_resource(models.Model):
     def csw_insert(self): #publish
         pass
 
-    def csw_get(self):
-        settings.CSW_SERVER_URL
-        pass
+    def csw_get(self, metadata_id, csw_url=''):
+        if csw_url == '':
+            csw_url = settings.CSW_SERVER_URL
+        cswClient = csw.CatalogueServiceWeb('http://bdgex.eb.mil.br/csw')
+        cswClient.getrecordbyid(id=[metadataid])
+        for rec in csw.records:
+            print(csw.records[rec].title)
+
     
     def csw_delete(self):
         pass
@@ -28,5 +33,6 @@ class geospatial_resource(models.Model):
     def check_metadata_xml(self):
         pass
 
-    
+    def import_geo_data(self):
+        pass
 
