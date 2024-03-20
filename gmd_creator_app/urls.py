@@ -2,9 +2,8 @@
 from django.urls import path, include
 from django.conf import settings
 from rest_framework import routers, serializers, viewsets
-from gmd_creator_app.views import show_csw_metadata
+from gmd_creator_app.views import show_csw_metadata, hello_world
 from gmd_creator_app.models import geospatial_resource
-
 
 # Serializers define the API representation.
 class geospatial_resource_Serializer(serializers.HyperlinkedModelSerializer):
@@ -25,6 +24,7 @@ router.register(r'georesources', geospatial_resource_ViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path("show_csw_metadata", show_csw_metadata),
+    path("hello_world", hello_world.as_view()),
     path('', include(router.urls)),
 ]
 

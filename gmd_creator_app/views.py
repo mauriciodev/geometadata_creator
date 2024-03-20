@@ -18,3 +18,20 @@ def show_csw_metadata(request):
                }
     #return HttpResponse("You're voting on question %s." % metadataid)
     return render(request, "gmd_creator/show_csw_metadata.html", context)
+
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+class hello_world(APIView):
+    """
+    Can be accessed read only.
+    """
+    #authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    def get(self, request, format=None):
+        response= {
+            "gmd:distributionFormat gmd:name gco:CharacterString": "Shape File",
+        }
+        return Response(response)

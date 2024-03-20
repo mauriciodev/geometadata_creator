@@ -46,7 +46,7 @@ class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
             metadata = cswClient.records[rec]
             
             new_resource = geospatial_resource()
-            new_resource.title = metadata.identification.title
+            new_resource.title = metadata.identification[0].title
             new_resource.metadata_id = metadata.identifier
 
             xml_file_name = os.path.join(settings.MEDIA_ROOT, 'repository', f"{new_resource.metadata_id}.xml")

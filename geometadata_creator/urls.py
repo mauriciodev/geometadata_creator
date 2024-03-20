@@ -25,7 +25,7 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api', include(router.urls)),
+    #path('api', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')), #, namespace='rest_framework'),
     path('gmd_creator/', include('gmd_creator_app.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
