@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.files import File
 from owslib import csw
 
-from .models import geospatial_resource
+from .models import GeospatialResource
 
 class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
     def has_metadata(self, obj):
@@ -45,7 +45,7 @@ class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
         for rec in cswClient.records:
             metadata = cswClient.records[rec]
             
-            new_resource = geospatial_resource()
+            new_resource = GeospatialResource()
             new_resource.title = metadata.identification[0].title
             new_resource.metadata_id = metadata.identifier
 
@@ -123,5 +123,5 @@ class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
     ]
     search_fields = ["metadata_id","title"]
 
-admin.site.register(geospatial_resource, geospatial_resource_Admin)
+admin.site.register(GeospatialResource, geospatial_resource_Admin)
 

@@ -1,19 +1,20 @@
 # urls.py
 from django.urls import path, include
 from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
 from gmd_creator_app.views import show_csw_metadata, hello_world
-from gmd_creator_app.models import geospatial_resource
+from gmd_creator_app.models import GeospatialResource
 
 # Serializers define the API representation.
 class geospatial_resource_Serializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = geospatial_resource
+        model = GeospatialResource
         fields = ['metadata_id', 'title', 'published_on_csw']
 
 # ViewSets define the view behavior.
 class geospatial_resource_ViewSet(viewsets.ModelViewSet):
-    queryset = geospatial_resource.objects.all()
+    queryset = GeospatialResource.objects.all()
     serializer_class = geospatial_resource_Serializer
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -28,4 +29,11 @@ urlpatterns = [
     path('', include(router.urls)),
 ]
 
-#urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+from .views import FileUploadAPIView
+
+urlpatterns += [
+    path('upload-file/', FileUploadAPIView.as_view(), name='upload-file'),
+]

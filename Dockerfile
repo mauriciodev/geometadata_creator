@@ -10,3 +10,5 @@ RUN python manage.py makemigrations &&\
 
 ENTRYPOINT ["python3"]
 CMD ["manage.py", "runserver", "0.0.0.0:8000"]
+
+#CMD [ "gunicorn","--bind", ":8000", "--workers", "3","pfc2024.wsgi" ]

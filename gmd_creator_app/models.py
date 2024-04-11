@@ -3,7 +3,7 @@ from simple_history.models import HistoricalRecords
 from django.conf import settings
 from owslib import csw, iso
 
-class geospatial_resource(models.Model):
+class GeospatialResource(models.Model):
     metadata_id = models.UUIDField()
     title = models.CharField(max_length=200, blank=True)
     metadata_file = models.FileField('Geospatial metadata XML.', upload_to='repository')
@@ -38,3 +38,9 @@ class geospatial_resource(models.Model):
     def import_geo_data(self):
         pass
 
+class UploadedFile(models.Model):
+    file = models.FileField()
+    uploaded_on = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.uploaded_on.date()
