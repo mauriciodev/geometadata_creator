@@ -10,7 +10,8 @@ Trabalho de casa:
     - Passar um objeto json com caminhos resumidos no nome de cada variável
     - Passar um objeto json com caminhos completos no nome de cada variável
 
-    Levantar o helloworld em django rest. https://www.django-rest-framework.org/api-guide/views/
+    Introduzir o Swagger UI
+    Adaptar o exemplo de upload para o modelo GeometadataResource.
 
 
 Informações de metadados para o upload:
