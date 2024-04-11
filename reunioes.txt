@@ -1,0 +1,40 @@
+Trabalho de casa:
+    Pedro verificar se o exemplo funciona em react.Exemplo de resposta:
+        {
+            "gmd:distributionFormat gmd:name gco:CharacterString": "Shape File",
+            "gmd:MD_DataIdentification gmd:northBoundLatitude gco:Decimal": 10.0,
+        }
+    Diagrama que explica a sequência de preenchimento de metadados. Frontend upload, backend upload, devolve metadados, abre formulário, etc.
+    Responder quais das seguintes opções será adotada:
+    - Passar o XML completo com os campos preenchidos
+    - Passar um objeto json com caminhos resumidos no nome de cada variável
+    - Passar um objeto json com caminhos completos no nome de cada variável
+
+    Levantar o helloworld em django rest. https://www.django-rest-framework.org/api-guide/views/
+
+
+Informações de metadados para o upload:
+    Formato do arquivo
+        gmd:distributionFormat gmd:name gco:CharacterString
+    Extensão espacial (min x, min y, max x, max y)
+        gmd:MD_DataIdentification gmd:northBoundLatitude gco:Decimal
+        gmd:MD_DataIdentification gmd:westBoundLongitude gco:Decimal
+        gmd:MD_DataIdentification gmd:southBoundLatitude gco:Decimal
+        gmd:MD_DataIdentification gmd:eastBoundLongitude gco:Decimal
+    Tipo de representação espacial (Matricial/Vetorial)
+        gmd:MD_DataIdentification gmd:spatialRepresentationType gco:CharacterString
+    Palavras-chave
+        gmd:MD_DataIdentification gmd:descriptiveKeywords gmd:keyword gco:CharacterString
+    Sistema de referência (EPSG, descrição, DATUM)
+        Código epsg: gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:code gco:CharacterString
+        Autoridade: gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:authority gco:CharacterString
+        Datum vertical: gmd:MD_DataIdentification gmd:verticalExtent gmd:verticalDatum gco:CharacterString
+    Resolução espacial X e Y
+        row: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:dimensionName gco:CharacterString
+        Resolução da row: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:resolution gco:Decimal
+        column: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:dimensionName gco:CharacterString
+        Resolução da column: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:resolution gco:Decimal
+    Quantidade de bits
+    Escala (opcional)
+        gmd:MD_DataIdentification gmd:spatialResolution gmd:denominator gco:Integer
+
