@@ -1,48 +1,47 @@
-version: '3.3'
+version: "3.3"
 services:
-    gmd_creator: #this is the main django app. Check django_db_setup.sh to create the admin and populate the database.
-        container_name: gmd_creator
-        build:
-            context: .
-            target: gmd_creator
-        ports:
-            - '8000:8000'
+  gmd_creator: #this is the main django app. Check django_db_setup.sh to create the admin and populate the database.
+    container_name: gmd_creator
+    build:
+      context: .
+      target: gmd_creator
+    ports:
+      - "8000:8000"
 
-        volumes: #these volumes were added for development purposes. Django can reload after file changes.
-            - '${PWD}:/app'
+    volumes: #these volumes were added for development purposes. Django can reload after file changes.
+      - "./app/:/app"
 
-    nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
-        container_name: nginx
-        ports:
-            - '80:80'
-            - '443:443'
-        #volumes:
-            #- '${PWD}/configs/nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro'
-            #- '/var/run/docker.sock:/tmp/docker.sock:ro'
-            #- '/etc/apache2/ssl:/etc/nginx/certs'
-        restart: always
-        logging:
-            options:
-                max-size: 1g
-        image: nginx
-        depends_on: # NGINX will not run if the containers of the reverse proxy are not running.
-            - gmd_creator
-            - pycsw
+  nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    #volumes:
+    #- '${PWD}/configs/nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro'
+    #- '/var/run/docker.sock:/tmp/docker.sock:ro'
+    #- '/etc/apache2/ssl:/etc/nginx/certs'
+    restart: always
+    logging:
+      options:
+        max-size: 1g
+    image: nginx
+    depends_on: # NGINX will not run if the containers of the reverse proxy are not running.
+      - gmd_creator
+      - pycsw
 
-    pycsw: #Catalogue Service for the Web (CSW)
-        container_name: pycsw
-        #ports:
-            #- '8088:8000'
-        volumes:
-            #- '${PWD}/configs/pycsw.cfg:/etc/pycsw/pycsw.cfg:ro'
-            - '${PWD}/logs/pycsw/:/var/log/pycsw/'
-        restart: always
-        environment:
-            #POSTGRES_PASSWORD: test
-            #POSTGRES_USER: postgres
-            PYCSW_SERVER_URL: http://localhost:8000
-        logging:
-            options:
-                max-size: 1g
-        image: geopython/pycsw
-
+  pycsw: #Catalogue Service for the Web (CSW)
+    container_name: pycsw
+    #ports:
+    #- '8088:8000'
+    volumes:
+      #- '${PWD}/configs/pycsw.cfg:/etc/pycsw/pycsw.cfg:ro'
+      - "${PWD}/logs/pycsw/:/var/log/pycsw/"
+    restart: always
+    environment:
+      #POSTGRES_PASSWORD: test
+      #POSTGRES_USER: postgres
+      PYCSW_SERVER_URL: http://localhost:8000
+    logging:
+      options:
+        max-size: 1g
+    image: geopython/pycsw
