@@ -6,7 +6,7 @@ from rest_framework import routers, serializers, viewsets
 from gmd_creator_app.views import show_csw_metadata, hello_world
 from gmd_creator_app.models import GeospatialResource
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from .views import FileUploadAPIView
+from .views import FileUploadAPIView, GeoresourceUploadAPIView
 
 
 # Serializers define the API representation.
@@ -37,4 +37,5 @@ urlpatterns = [
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
     path("upload-file/", FileUploadAPIView.as_view(), name="upload-file"),
+    path("upload-georesource/", GeoresourceUploadAPIView.as_view(), name="upload-georesource"),
 ]

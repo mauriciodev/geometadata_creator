@@ -11,8 +11,8 @@ from rest_framework.views import APIView
 from rest_framework import authentication, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from .serializers import FileUploadSerializer
-
+from .serializers import FileUploadSerializer, GeoresourceUploadSerializer
+from osgeo import gdal,ogr
 # Create your views here.
 
 
@@ -53,6 +53,30 @@ class FileUploadAPIView(APIView):
         if serializer.is_valid():
             # you can access the file like this from serializer
             # uploaded_file = serializer.validated_data["file"]
+            serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+class GeoresourceUploadAPIView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    parser_classes = (MultiPartParser, FormParser)
+    serializer_class = GeoresourceUploadSerializer
+    
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            # you can access the file like this from serializer
+            # uploaded_file = serializer.validated_data["file"]
+            # if georesource was uploaded, extract geoinfo with gdal/ogr
+            # if metadata XML was uploaded, return it's content
+            # if pdf was uploaded, return the URL
             serializer.save()
             return Response(
                 serializer.data,

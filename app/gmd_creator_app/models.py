@@ -1,12 +1,13 @@
+import uuid
 from django.db import models
 from simple_history.models import HistoricalRecords
 from django.conf import settings
 from owslib import csw, iso
 
 class GeospatialResource(models.Model):
-    metadata_id = models.UUIDField()
+    metadata_id = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200, blank=True)
-    metadata_file = models.FileField('Geospatial metadata XML.', upload_to='repository')
+    metadata_file = models.FileField('Geospatial metadata XML.', null=True, blank=True, upload_to='repository')
     geodata_file = models.FileField('Geospatial data file.', null=True, blank=True, upload_to='repository')
     pdf_file = models.FileField('PDF file for printing.', null=True, blank=True, upload_to='repository')
     published_on_csw = models.BooleanField(default=False)
