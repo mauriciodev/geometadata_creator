@@ -141,3 +141,5 @@ REST_FRAMEWORK = {
 }
 
 CSW_SERVER_URL = "http://bdgex.eb.mil.br/csw"
+
+FILE_UPLOAD_HANDLERS = ['django.core.files.uploadhandler.TemporaryFileUploadHandler',]

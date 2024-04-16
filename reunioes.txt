@@ -12,7 +12,7 @@ Trabalho de casa:
 
     Introduzir o Swagger UI
     Adaptar o exemplo de upload para o modelo GeometadataResource.
-
+    HTMX upĺoad
 
 Informações de metadados para o upload:
     Formato do arquivo
@@ -39,3 +39,18 @@ Informações de metadados para o upload:
     Escala (opcional)
         gmd:MD_DataIdentification gmd:spatialResolution gmd:denominator gco:Integer
 
+
+
+
+
+Caso 1 (arquivo já está na pasta de upload temporário. Foi carregado em lote por sftp).
+Descrição: O usuário tem um monte de arquivos para carregar e vai ter que preencher metadados deles um por um. Ele envia os arquivos pesados para o servidor e começa a preencher no formulário.
+ - Usuário pede para selecionar arquivo da pasta de upload.
+ - Backend devolve as partes do metadado que são referentes ao arquivo.
+ - Preenche os metadados no formulário.
+
+Caso 2 (arquivo será enviado para o servidor pelo form).
+Descrição- O usuário tem um arquivo só, caso trivial. Ele envia o arquivo pelo próprio formulário e preenche.
+ - Usuário envia arquivo, que é guardado no django.
+ - Backend devolve as partes do metadado que são referentes ao arquivo.
+ - Preenche os metadados no formulário.

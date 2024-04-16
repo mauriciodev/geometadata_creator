@@ -12,7 +12,8 @@ from rest_framework import authentication, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .serializers import FileUploadSerializer, GeoresourceUploadSerializer
-from osgeo import gdal,ogr
+from osgeo import gdal,ogr, osr
+import rasterio
 # Create your views here.
 
 
@@ -72,14 +73,49 @@ class GeoresourceUploadAPIView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            # you can access the file like this from serializer
-            # uploaded_file = serializer.validated_data["file"]
+            metadata_response = {}
+            
             # if georesource was uploaded, extract geoinfo with gdal/ogr
+            geodata_file = serializer.validated_data["geodata_file"].temporary_file_path()
+            with rasterio.open(geodata_file) as img_ds:
+                metadata_response['gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:code gco:CharacterString'] = str(img_ds.crs)
+                img_ds.bounds #metadata
+                img_ds.driver #metadata
+                img_ds.dtypes #metadata
+                img_ds.get_transform()[1] #metadata (resolution x)
+                img_ds.get_transform()[5] #metadata (resolution y)
+                #metadata : test if it's vector or raster
+            
             # if metadata XML was uploaded, return it's content
             # if pdf was uploaded, return the URL
+
+            """Trazer: 
+                Formato do arquivo
+        gmd:distributionFormat gmd:name gco:CharacterString
+    Extensão espacial (min x, min y, max x, max y)
+        gmd:MD_DataIdentification gmd:northBoundLatitude gco:Decimal
+        gmd:MD_DataIdentification gmd:westBoundLongitude gco:Decimal
+        gmd:MD_DataIdentification gmd:southBoundLatitude gco:Decimal
+        gmd:MD_DataIdentification gmd:eastBoundLongitude gco:Decimal
+    Tipo de representação espacial (Matricial/Vetorial)
+        gmd:MD_DataIdentification gmd:spatialRepresentationType gco:CharacterString
+    Palavras-chave
+        gmd:MD_DataIdentification gmd:descriptiveKeywords gmd:keyword gco:CharacterString
+    Sistema de referência (EPSG, descrição, DATUM)
+        Código epsg: gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:code gco:CharacterString
+        Autoridade: gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:authority gco:CharacterString
+        Datum vertical: gmd:MD_DataIdentification gmd:verticalExtent gmd:verticalDatum gco:CharacterString
+    Resolução espacial X e Y
+        row: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:dimensionName gco:CharacterString
+        Resolução da row: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:resolution gco:Decimal
+        column: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:dimensionName gco:CharacterString
+        Resolução da column: gmd:spatialRepresentationInfo MD_Georectified gmd:axisDimensionProperties gmd:resolution gco:Decimal
+    Quantidade de bits
+    Escala (opcional)
+        gmd:MD_DataIdentification gmd:spatialResolution gmd:denominator gco:Integer"""
             serializer.save()
             return Response(
-                serializer.data,
+                serializer.data | metadata_response,
                 status=status.HTTP_201_CREATED
             )
         
