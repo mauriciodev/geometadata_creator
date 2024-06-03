@@ -13,7 +13,7 @@ class GeospatialResourceTests(APITestCase):
         self.user = get_user_model().objects.create(username='root')
         self.client.force_authenticate(self.user)
         
-    def test_upload(self):
+    def test_upload_tif(self):
         """
         Ensure we can create a new account object.
         """
@@ -26,3 +26,10 @@ class GeospatialResourceTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(GeospatialResource.objects.count(), 1)
         #self.assertEqual(GeospatialResource.objects.get().name, 'DabApps')
+
+
+    def test_upload_shp(self):
+        pass
+
+    def test_upload_invalid(self):
+        pass
