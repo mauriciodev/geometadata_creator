@@ -12,3 +12,4 @@ psycopg2-binary
 mypy
 django-stubs[compatible-mypy]
 drf-spectacular>=0.15,<0.16
+rasterio
