@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.files import File
 from owslib import csw
 
-from .models import GeospatialResource
+from .models import GeospatialResource, ProductType, MetadataFormField
 
 class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
     def has_metadata(self, obj):
@@ -125,3 +125,6 @@ class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
 
 admin.site.register(GeospatialResource, geospatial_resource_Admin)
 
+
+admin.site.register(ProductType)
+admin.site.register(MetadataFormField)

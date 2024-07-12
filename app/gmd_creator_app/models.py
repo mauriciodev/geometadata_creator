@@ -45,3 +45,24 @@ class UploadedFile(models.Model):
     
     def __str__(self):
         return self.uploaded_on.date()
+
+class ProductType(models.Model):
+    name = models.CharField(max_length=100, blank=True)
+
+class MetadataFormField(models.Model):
+    label = models.CharField(max_length=100, blank=True)
+    iso_xml_path = models.CharField(max_length=200, blank=True)
+    field_types = {
+        'list':'list', 
+        'combobox':'combobox',
+        'date':'date'
+    }
+    field_type = models.CharField(max_length=100, choices=field_types)
+    is_static = models.BooleanField(default=False)
+    used_by_product = models.ManyToManyField(ProductType)
+    possible_values = models.TextField()
+    default_value = models.CharField(max_length=100, blank=True)
+    comments = models.TextField(blank=True)
+    old_path = models.TextField(blank=True)
+    def __str__(self):
+        return self.label
