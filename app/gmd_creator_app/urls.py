@@ -6,7 +6,7 @@ from rest_framework import routers, serializers, viewsets
 from gmd_creator_app.views import show_csw_metadata, hello_world
 from gmd_creator_app.models import GeospatialResource
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from .views import FileUploadAPIView, GeoresourceUploadAPIView
+from .views import GeoresourceUploadAPIView, ProductTypeViewSet
 
 
 # Serializers define the API representation.
@@ -25,6 +25,9 @@ class geospatial_resource_ViewSet(viewsets.ModelViewSet):
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r"georesources", geospatial_resource_ViewSet)
+router.register(r"product_type_form", ProductTypeViewSet)
+
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -36,6 +39,5 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
-    path("upload-file/", FileUploadAPIView.as_view(), name="upload-file"),
     path("upload-georesource/", GeoresourceUploadAPIView.as_view(), name="upload-georesource"),
 ]

@@ -39,13 +39,6 @@ class GeospatialResource(models.Model):
     def import_geo_data(self):
         pass
 
-class UploadedFile(models.Model):
-    file = models.FileField()
-    uploaded_on = models.DateTimeField(auto_now_add=True)
-    
-    def __str__(self):
-        return self.uploaded_on.date()
-
 class ProductType(models.Model):
     name = models.CharField(max_length=100, blank=True)
     metadata_fields = models.ManyToManyField('MetadataFormField')

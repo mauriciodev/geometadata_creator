@@ -8,10 +8,11 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from rest_framework import authentication, permissions
+from rest_framework import authentication, permissions, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
-from .serializers import FileUploadSerializer, GeoresourceUploadSerializer
+from .serializers import GeoresourceUploadSerializer, ProductTypeSerializer
+from .models import ProductType
 from osgeo import gdal,ogr, osr
 import rasterio
 # Create your views here.
@@ -41,29 +42,6 @@ class hello_world(APIView):
             "gmd:distributionFormat gmd:name gco:CharacterString": "Shape File",
         }
         return Response(response)
-
-
-
-class FileUploadAPIView(APIView):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    parser_classes = (MultiPartParser, FormParser)
-    serializer_class = FileUploadSerializer
-    
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            # you can access the file like this from serializer
-            # uploaded_file = serializer.validated_data["file"]
-            serializer.save()
-            return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
-            )
-        
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
 
 class GeoresourceUploadAPIView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -123,3 +101,7 @@ class GeoresourceUploadAPIView(APIView):
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
+
+class ProductTypeViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = ProductType.objects.all()
+    serializer_class = ProductTypeSerializer
