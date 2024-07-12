@@ -48,6 +48,9 @@ class UploadedFile(models.Model):
 
 class ProductType(models.Model):
     name = models.CharField(max_length=100, blank=True)
+    metadata_fields = models.ManyToManyField('MetadataFormField')
+    def __str__(self):
+        return self.name
 
 class MetadataFormField(models.Model):
     label = models.CharField(max_length=100, blank=True)
@@ -59,10 +62,9 @@ class MetadataFormField(models.Model):
     }
     field_type = models.CharField(max_length=100, choices=field_types)
     is_static = models.BooleanField(default=False)
-    used_by_product = models.ManyToManyField(ProductType)
     possible_values = models.TextField()
     default_value = models.CharField(max_length=100, blank=True)
     comments = models.TextField(blank=True)
     old_path = models.TextField(blank=True)
     def __str__(self):
-        return self.label
+        return f"{self.label}: {self.iso_xml_path}"
