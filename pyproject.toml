@@ -8,4 +8,4 @@ plugins = ["mypy_django_plugin.main"]
 # django_settings_module = "myproject.settings"
 
 [mypy.plugins.django-stubs]
-django_settings_module = "geometadata_creator.settings"
+django_settings_module = "app.geometadata_creator.settings"

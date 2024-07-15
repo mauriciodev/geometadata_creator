@@ -1,15 +1,4 @@
-Django>5.0.0
-djangorestframework
-markdown
-django-filter #Filters for rest framework.
-django-guardian  #Object-level permission for rest framework.
-owslib>=0.28.0 #OGC services client. Mainly CSW.
-django-simple-history
-django-admin_extra_buttons
-django-constance
-
 psycopg2-binary
 mypy
 django-stubs[compatible-mypy]
 drf-spectacular>=0.15,<0.16
-rasterio

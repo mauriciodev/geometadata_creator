@@ -9,3 +9,4 @@ django-admin_extra_buttons
 django-constance
 drf-spectacular
 rasterio
+GDAL
