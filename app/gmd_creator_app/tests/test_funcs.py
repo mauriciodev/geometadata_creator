@@ -17,7 +17,7 @@ class GeospatialResourceTests(APITestCase):
         Ensure we can create a new account object.
         """
         url = reverse("upload-georesource")
-        with open("gmd_creator_app/test_data/recorte.tif", "rb") as fp:
+        with open("gmd_creator_app/tests/test_data/recorte.tif", "rb") as fp:
             data = {"geodata_file": fp}
             response = self.client.post(url, data, format="multipart")
             print(response.data)
