@@ -1,4 +1,3 @@
-version: "3.3"
 services:
   gmd_creator: #this is the main django app. Check django_db_setup.sh to create the admin and populate the database.
     container_name: gmd_creator
