@@ -1,5 +1,4 @@
 from owslib import csw
-import requests
 
 cswClient = csw.CatalogueServiceWeb("https://bdgex.eb.mil.br/csw")
 metadataids = [
