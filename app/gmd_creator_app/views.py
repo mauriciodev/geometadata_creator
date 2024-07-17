@@ -13,7 +13,8 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .serializers import GeoresourceUploadSerializer, ProductTypeSerializer
 from .models import ProductType
 import rasterio
-
+from rasterio import warp
+from gmd_creator_app.grid_utm import grid_utm
 # Create your views here.
 
 
@@ -63,8 +64,16 @@ class GeoresourceUploadAPIView(APIView):
                     "gmd:MD_ReferenceSystem gmd:referenceSystemIdentifier gmd:code gco:CharacterString"
                 ] = str(img_ds.crs)
                 img_ds.bounds  # metadata
+                
                 img_ds.driver  # metadata
                 img_ds.dtypes  # metadata
+                
+                LL_bounds = warp.transform_bounds(img_ds.crs, 4326, *img_ds.bounds)
+                inomen_extractor = grid_utm()
+                inomen = inomen_extractor.inomenFromExtent(*LL_bounds)
+                scale = inomen_extractor.getScale(inomen)*1000
+                #cuidado, não estou verificando ainda se o produto é sistemático. Estou apenas calculando qual Inomen seria o mais provável.
+
                 img_ds.get_transform()[1]  # metadata (resolution x)
                 img_ds.get_transform()[5]  # metadata (resolution y)
                 # metadata : test if it's vector or raster
