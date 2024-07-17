@@ -28,7 +28,6 @@ router.register(r"georesources", geospatial_resource_ViewSet)
 router.register(r"product_type_form", ProductTypeViewSet)
 
 
-
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
@@ -39,5 +38,9 @@ urlpatterns = [
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
-    path("upload-georesource/", GeoresourceUploadAPIView.as_view(), name="upload-georesource"),
+    path(
+        "upload-georesource/",
+        GeoresourceUploadAPIView.as_view(),
+        name="upload-georesource",
+    ),
 ]

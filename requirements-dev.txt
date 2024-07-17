@@ -1,4 +1,3 @@
 psycopg2-binary
-mypy
-django-stubs[compatible-mypy]
+django-stubs
 drf-spectacular>=0.15,<0.16
