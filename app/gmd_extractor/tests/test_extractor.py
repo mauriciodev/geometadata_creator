@@ -3,6 +3,7 @@ from django.test import TestCase
 from numpy import float64, zeros
 from gmd_extractor.extractor import Extractor, RasterExtractableInfo
 import rasterio
+from os import remove
 
 RASTEREXAMPLE = Path("gmd_creator_app/tests/test_data/example.tif")
 
@@ -59,3 +60,7 @@ class GMDExtractorTests(TestCase):
             "gmd_creator_app/tests/test_data/example.tif"
         )
         self.assertEqual(response.model_dump(), self.solution.model_dump())
+
+    def tearDown(self) -> None:
+        remove(RASTEREXAMPLE)
+        return super().tearDown()

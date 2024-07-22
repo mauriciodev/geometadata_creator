@@ -1,5 +1,6 @@
 Django>5.0.0
 djangorestframework
+pydantic
 markdown
 django-filter #Filters for rest framework.
 django-guardian  #Object-level permission for rest framework.
