@@ -1,4 +1,4 @@
-from enum import Enum
+from pathlib import Path
 import rasterio
 from pydantic import BaseModel
 
@@ -34,15 +34,17 @@ class RasterExtractableInfo(BaseModel):
     resolucao_espacial: tuple[float, float]
 
 
-class FileTypes(Enum):
-    raster = "tiff"
+def parse_file(geodata_file: str):
+    suffix = Path(geodata_file).suffix
+    match suffix:
+        case ".tiff" | ".tif":
+            return extract_raster_metadata(geodata_file)
+        case _:
+            raise TypeError("Arquivo não é do tipo geoespacial")
 
 
-class Extractor:
-
-    @staticmethod
-    def extract_raster_metadata(geodata_file: str):
-        response = {}
+def extract_raster_metadata(geodata_file: str):
+    try:
         with rasterio.open(geodata_file) as img_ds:
             response = RasterExtractableInfo(
                 extensao_espacial=img_ds.bounds,  # metadata
@@ -52,9 +54,6 @@ class Extractor:
                     img_ds.get_transform()[5],
                 ),
             )
-            # response["bounds"] = img_ds.bounds  # metadata
-            # response["driver"] = img_ds.driver  # metadata
-            # response["dtypes"] = img_ds.dtypes  # metadata
-            # response["resx"] = img_ds.get_transform()[1]  # metadata (resolution x)
-            # response["resy"] = img_ds.get_transform()[5]  # metadata (resolution x)
         return response
+    except Exception as _:
+        raise Exception("Erro na hora de ler o arquivo")

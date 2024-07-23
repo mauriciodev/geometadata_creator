@@ -29,7 +29,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # path('api', include(router.urls)),
     path("api-auth/", include("rest_framework.urls")),  # , namespace='rest_framework'),
-    path("gmd_creator/", include("gmd_creator_app.urls")),
+    path("gmd_creator/", include("core.urls")),
     path("api/schema/", SpectacularAPIView.as_view(), name="api-schema"),
     path(
         "api/docs/",

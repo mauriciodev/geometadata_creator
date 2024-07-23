@@ -1,11 +1,11 @@
 from pathlib import Path
 from django.test import TestCase
 from numpy import float64, zeros
-from gmd_extractor.extractor import Extractor, RasterExtractableInfo
+from file_handler.extractor import RasterExtractableInfo, parse_file
 import rasterio
 from os import remove
 
-RASTEREXAMPLE = Path("gmd_creator_app/tests/test_data/example.tif")
+RASTEREXAMPLE = Path("core/tests/test_data/example.tif")
 
 
 def create_example() -> RasterExtractableInfo:
@@ -47,18 +47,14 @@ class GMDExtractorTests(TestCase):
         """
         Ensure we get a dict from using the extract raster method
         """
-        response = Extractor.extract_raster_metadata(
-            "gmd_creator_app/tests/test_data/example.tif"
-        )
+        response = parse_file("core/tests/test_data/example.tif")
         self.assertIsInstance(response, RasterExtractableInfo)
 
     def test_value_acuracy(self):
         """
         Ensure that the values collected are correct
         """
-        response = Extractor.extract_raster_metadata(
-            "gmd_creator_app/tests/test_data/example.tif"
-        )
+        response = parse_file("core/tests/test_data/example.tif")
         self.assertEqual(response.model_dump(), self.solution.model_dump())
 
     def tearDown(self) -> None:

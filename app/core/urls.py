@@ -3,8 +3,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
-from gmd_creator_app.views import show_csw_metadata, hello_world
-from gmd_creator_app.models import GeospatialResource
+from core.views import show_csw_metadata, hello_world
+from core.models import GeospatialResource
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from .views import GeoresourceUploadAPIView, ProductTypeViewSet
 

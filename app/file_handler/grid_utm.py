@@ -138,7 +138,7 @@ if __name__ == "__main__":
     print(test.computeSpacingY())
     print(test.getSpacingX(25))
 
-    # print(test.getInomenFromRasterio('gmd_creator_app/test_data/recorte.tif'))
+    # print(test.getInomenFromRasterio('core/test_data/recorte.tif'))
     print(
         test.getInomenFromRasterio(
             "/home/mauricio/Desktop/Doutorado_psq/PFC_2024/geometadata_creator/SCN_Carta_Topografica_Matricial-0017−2−NE-NB-22-Y-D-V-2-NE-25.000.tif"

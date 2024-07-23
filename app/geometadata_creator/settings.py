@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "gmd_creator_app",
     "simple_history",
     "admin_extra_buttons",
     "drf_spectacular",
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -145,4 +145,3 @@ CSW_SERVER_URL = "http://bdgex.eb.mil.br/csw"
 FILE_UPLOAD_HANDLERS = [
     "django.core.files.uploadhandler.TemporaryFileUploadHandler",
 ]
-

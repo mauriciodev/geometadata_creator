@@ -1,6 +1,6 @@
 [
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 1,
     "fields": {
       "label": "Identificador metadados",
@@ -14,7 +14,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 2,
     "fields": {
       "label": "Responsável pelas informações de metadados/CREA",
@@ -28,7 +28,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 3,
     "fields": {
       "label": "Função do responsável",
@@ -42,7 +42,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 4,
     "fields": {
       "label": "Nome da organização",
@@ -56,7 +56,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 5,
     "fields": {
       "label": "Endereço eletrônico da organização",
@@ -70,7 +70,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 6,
     "fields": {
       "label": "Função da organização",
@@ -84,7 +84,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 7,
     "fields": {
       "label": "Data de preenchimento",
@@ -98,7 +98,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 8,
     "fields": {
       "label": "Idioma",
@@ -112,7 +112,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 9,
     "fields": {
       "label": "Conjunto de caracteres",
@@ -126,7 +126,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 10,
     "fields": {
       "label": "Padrão de metadados",
@@ -140,7 +140,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 11,
     "fields": {
       "label": "Versão do padrão",
@@ -154,7 +154,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 12,
     "fields": {
       "label": "Nível hierárquico",
@@ -168,7 +168,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 13,
     "fields": {
       "label": "Manutenção metadados",
@@ -182,7 +182,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 14,
     "fields": {
       "label": "Grau de sigilo",
@@ -196,7 +196,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 15,
     "fields": {
       "label": "Projeto",
@@ -210,7 +210,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 16,
     "fields": {
       "label": "Nome da carta",
@@ -224,7 +224,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 17,
     "fields": {
       "label": "Título",
@@ -238,7 +238,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 18,
     "fields": {
       "label": "Índice de nomenclatura",
@@ -252,7 +252,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 19,
     "fields": {
       "label": "MI do produto",
@@ -266,7 +266,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 20,
     "fields": {
       "label": "Data de criação",
@@ -280,7 +280,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 21,
     "fields": {
       "label": "Tipo de data",
@@ -294,7 +294,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 22,
     "fields": {
       "label": "Edição",
@@ -308,7 +308,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 23,
     "fields": {
       "label": "Data de edição",
@@ -322,7 +322,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 24,
     "fields": {
       "label": "Tipo de data",
@@ -336,7 +336,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 25,
     "fields": {
       "label": "Nome da série",
@@ -350,7 +350,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 26,
     "fields": {
       "label": "Resumo sobre a finalidade do produto",
@@ -364,7 +364,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 27,
     "fields": {
       "label": "Propósito original da criação do produto",
@@ -378,7 +378,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 28,
     "fields": {
       "label": "Créditos",
@@ -392,7 +392,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 29,
     "fields": {
       "label": "Situação",
@@ -406,7 +406,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 30,
     "fields": {
       "label": "Escala de uso prevista",
@@ -420,7 +420,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 31,
     "fields": {
       "label": "Maior escala para utilização do conjunto de dado",
@@ -434,7 +434,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 32,
     "fields": {
       "label": "Idioma",
@@ -448,7 +448,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 33,
     "fields": {
       "label": "Conjunto de caracteres",
@@ -462,7 +462,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 34,
     "fields": {
       "label": "Tópico da categoria",
@@ -476,7 +476,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 35,
     "fields": {
       "label": "Latitude norte",
@@ -490,7 +490,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 36,
     "fields": {
       "label": "Longitude oeste",
@@ -504,7 +504,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 37,
     "fields": {
       "label": "Longitude leste",
@@ -518,7 +518,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 38,
     "fields": {
       "label": "Latitude sul",
@@ -532,7 +532,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 39,
     "fields": {
       "label": "Tipo de representação espacial",
@@ -546,7 +546,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 40,
     "fields": {
       "label": "Equidistância das curvas de nível (m)",
@@ -560,7 +560,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 41,
     "fields": {
       "label": "Nome da organização responsável pelo produto",
@@ -574,7 +574,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 42,
     "fields": {
       "label": "Endereço da organização",
@@ -588,7 +588,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 43,
     "fields": {
       "label": "Telefone da organização",
@@ -602,7 +602,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 44,
     "fields": {
       "label": "Endereço eletrônico da organização",
@@ -616,7 +616,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 45,
     "fields": {
       "label": "Função da organização",
@@ -630,7 +630,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 46,
     "fields": {
       "label": "Forma de apresentação",
@@ -644,7 +644,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 47,
     "fields": {
       "label": "Limitação de acesso",
@@ -658,7 +658,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 48,
     "fields": {
       "label": "Limitação de uso",
@@ -672,7 +672,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 49,
     "fields": {
       "label": "Restrições de uso",
@@ -686,7 +686,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 50,
     "fields": {
       "label": "Grau de sigilo",
@@ -700,7 +700,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 51,
     "fields": {
       "label": "Uso específico",
@@ -714,7 +714,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 52,
     "fields": {
       "label": "Informação da organização",
@@ -728,7 +728,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 53,
     "fields": {
       "label": "Endereço eletrônico da organização",
@@ -742,7 +742,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 54,
     "fields": {
       "label": "Palavra-chave",
@@ -756,7 +756,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 55,
     "fields": {
       "label": "Tipo palavra-chave",
@@ -770,7 +770,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 56,
     "fields": {
       "label": "Sistema de referência planimétrico",
@@ -784,7 +784,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 57,
     "fields": {
       "label": "Versão do código",
@@ -798,7 +798,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 58,
     "fields": {
       "label": "Autoridade",
@@ -812,7 +812,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 59,
     "fields": {
       "label": "Descrição",
@@ -826,7 +826,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 60,
     "fields": {
       "label": "Datum",
@@ -840,7 +840,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 61,
     "fields": {
       "label": "Datum vertical",
@@ -854,7 +854,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 62,
     "fields": {
       "label": "Frequência de atualização",
@@ -868,7 +868,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 63,
     "fields": {
       "label": "Formato do arquivo",
@@ -882,7 +882,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 64,
     "fields": {
       "label": "Versão",
@@ -896,7 +896,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 65,
     "fields": {
       "label": "Tamanho para distribuição",
@@ -910,7 +910,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 66,
     "fields": {
       "label": "Nome da mídia",
@@ -924,7 +924,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 67,
     "fields": {
       "label": "Recurso online",
@@ -938,7 +938,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 68,
     "fields": {
       "label": "Nome da organização distribuidora",
@@ -952,7 +952,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 69,
     "fields": {
       "label": "Endereço da organização distribuidora",
@@ -966,7 +966,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 70,
     "fields": {
       "label": "Telefone da organização distribuidora",
@@ -980,7 +980,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 71,
     "fields": {
       "label": "Função da organização distribuidora",
@@ -994,7 +994,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 72,
     "fields": {
       "label": "Custo",
@@ -1008,7 +1008,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.metadataformfield",
+    "model": "core.metadataformfield",
     "pk": 73,
     "fields": {
       "label": "Declaração",
@@ -1022,7 +1022,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.producttype",
+    "model": "core.producttype",
     "pk": 1,
     "fields": {
       "name": "SCN Carta Topografica Matricial",
@@ -1035,7 +1035,7 @@
     }
   },
   {
-    "model": "gmd_creator_app.producttype",
+    "model": "core.producttype",
     "pk": 2,
     "fields": {
       "name": "SCN Carta Topográfica Matricial (sumarizada)",
@@ -1046,4 +1046,3 @@
     }
   }
 ]
-
