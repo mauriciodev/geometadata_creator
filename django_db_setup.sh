@@ -8,4 +8,6 @@ python app/manage.py makemigrations
 python app/manage.py makemigrations core
 python app/manage.py migrate
 python app/manage.py createsuperuser
-python app/manage.py loaddata app/core/fixtures/form_fields.json
+python app/manage.py loaddata app/core/fixtures/form_fields.json app/core/fixtures/index_map.json
+
+
