@@ -1,8 +1,9 @@
+import os
+
 from django.urls import reverse
-from core.models import IndexMap
-from core.grid_utm import grid_utm
 from django.test import TestCase
 
+from core.models import IndexMap
 
 class IndexMapTests(TestCase):
     fixtures = ["index_map"]
@@ -23,6 +24,7 @@ class IndexMapTests(TestCase):
         self.assertEqual(IndexMap.objects.get_inomen_by_mi('1761'),'SC-22-Y-C-I') #MI 100k
         self.assertEqual(IndexMap.objects.get_inomen_by_mi('1873-2-NO'),'SD-21-X-B-III-2-NO') #MI 25k
 
-    def test_upload_invalid(self):
-        pass
- 
+    def test_inomen_from_file(self):
+        filename = 'core/tests/test_data/recorte.tif'
+        self.assertTrue(os.path.exists(filename))
+        self.assertEqual(IndexMap.objects.get_inomen_mi_from_rasterio(filename),('SD-21-V-A-II-4-SO-C', '1863-4-SO-C'))
