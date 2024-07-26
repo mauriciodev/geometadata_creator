@@ -1,6 +1,6 @@
 Django>5.0.0
 djangorestframework
-pydantic
+pydantic>2.0.0
 markdown
 django-filter #Filters for rest framework.
 django-guardian  #Object-level permission for rest framework.
@@ -10,4 +10,3 @@ django-admin_extra_buttons
 django-constance
 drf-spectacular
 rasterio
-GDAL

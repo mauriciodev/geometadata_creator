@@ -1,6 +1,6 @@
 from django.urls import reverse
 from core.models import IndexMap
-from file_handler.grid_utm import grid_utm
+from core.grid_utm import grid_utm
 from django.test import TestCase
 
 
