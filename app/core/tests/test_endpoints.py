@@ -14,20 +14,22 @@ class GeospatialResourceTests(APITestCase):
 
     def test_upload_tif(self):
         """
-        Ensure we can create a new account object.
+        Ensure we can upload a file.
         """
         url = reverse("upload-georesource")
         with open("core/tests/test_data/recorte.tif", "rb") as fp:
             data = {"geodata_file": fp}
             response = self.client.post(url, data, format="multipart")
-            print(response.data)
+            #print(response.data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(GeospatialResource.objects.count(), 1)
         # self.assertEqual(GeospatialResource.objects.get().name, 'DabApps')
 
     def test_upload_shp(self):
+        "Not implemented: Ensure that we can upload vector files."
         pass
 
     def test_upload_invalid(self):
+        "Not implemented: ensure that the upload is a valid file."
         pass
