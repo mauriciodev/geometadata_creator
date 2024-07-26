@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 
 
 class GeospatialResourceTests(APITestCase):
+    fixtures = ["index_map"]
     def setUp(self):
         super().setUp()
 
