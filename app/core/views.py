@@ -59,14 +59,20 @@ class GeoresourceUploadAPIView(APIView):
             "geodata_file"
         ].temporary_file_path()
         try:
-            metadata_response = parse_file(geodata_file).model_dump()
+            metadata_response = parse_file(geodata_file)
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
         serializer.save()
+        metadata_response['MD_Metadata-fileIdentifier'] = serializer.data['metadata_id']
+        
+        
 
         return Response(
-            serializer.data | metadata_response, status=status.HTTP_201_CREATED  # type: ignore
+            {
+                "serializer_data": serializer.data,
+                'metadata': metadata_response
+            }, status=status.HTTP_201_CREATED  # type: ignore
         )
 
 

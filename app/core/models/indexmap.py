@@ -6,13 +6,12 @@ from core.grid_utm import grid_utm
 class IndexMapManager(models.Manager):
     def __init__(self):
         super().__init__()
-        self.grid_utm = None
+        self.grid_utm = None #object that computes inom
 
     def get_mi(self,inomen:str): 
         parts = inomen.split('-')
         sufix=''
-        grid_utm = None #object that computes
-        
+      
         if len(parts) > 4: #1000000
             scale_denominator=100000
             if len(parts)>5: #50k or more

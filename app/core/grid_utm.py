@@ -37,7 +37,7 @@ class grid_utm:
         return id
 
     def getScale(self, inomen):
-        return self.scales[self.getScaleIdFromiNomen(inomen)]
+        return self.scales[self.getScaleIdFromiNomen(inomen)]*1000
 
     def computeSpacingX(self):
         if len(self.spacingX) == 0:
