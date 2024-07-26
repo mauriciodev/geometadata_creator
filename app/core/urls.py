@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
-from core.views import show_csw_metadata, hello_world
+from core.views import show_csw_metadata, hello_world, metadata_responsible_individual
 from core.models import GeospatialResource
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from .views import GeoresourceUploadAPIView, ProductTypeViewSet
@@ -43,4 +43,10 @@ urlpatterns += [
         GeoresourceUploadAPIView.as_view(),
         name="upload-georesource",
     ),
+    path(
+        "metadata_responsible_individual/", 
+        metadata_responsible_individual.as_view(),
+        name="metadata_responsible_individual"
+    ),
+
 ]

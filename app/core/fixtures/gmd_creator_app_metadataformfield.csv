@@ -13,7 +13,7 @@
 12,"Nível hierárquico","MD_Metadata-hierarchyLevel","string","TRUE",,"conjuntoDeDadosGeograficos",,"/MD_Metadata/hierarchyLevel"
 13,"Manutenção metadados","MD_Metadata-metadataMaintenance-maintenanceAndUpdateFrequency","string","TRUE",,"irregular",,"/MD_Metadata/metadataMaintenance/MD_MaintenanceInformation/maintenanceAndUpdateFrequency"
 14,"Grau de sigilo","MD_SecurityConstraints-classification-2","string","TRUE",,"ostensivo",,"/MD_Metadata/metadataConstraints[1]/MD_SecurityConstraints/classification"
-15,"Projeto","collectiveTitle","string","FALSE",,,"Buscar na api do cadastro geral","/MD_Metadata/identificationInfo/MD_DataIdentification/citation/CI_Citation/collectiveTitle"
+15,"Projeto","MD_Identification-citation-collectiveTitle","string","FALSE",,,"Buscar na api do cadastro geral","/MD_Metadata/identificationInfo/MD_DataIdentification/citation/CI_Citation/collectiveTitle"
 16,"Nome da carta","MD_Identification-citation-alternateTitle","string","FALSE",,,,"/MD_Metadata/identificationInfo/MD_DataIdentification/citation/CI_Citation/alternateTitle[1]"
 17,"Título","MD_Identification-citation-title","string","TRUE",,,"gerar compondo nome, mi e escala","/MD_Metadata/identificationInfo/MD_DataIdentification/citation/CI_Citation/title"
 18,"Índice de nomenclatura","MD_Identification-citation-alternateTitle","string","TRUE",,,"Gerar na api de upload","/MD_Metadata/identificationInfo/MD_DataIdentification/citation/CI_Citation/alternateTitle[2]"

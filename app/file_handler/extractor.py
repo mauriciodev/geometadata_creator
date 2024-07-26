@@ -46,14 +46,18 @@ def parse_file(geodata_file: str):
 def extract_raster_metadata(geodata_file: str):
     try:
         with rasterio.open(geodata_file) as img_ds:
-            response = RasterExtractableInfo(
-                extensao_espacial=img_ds.bounds,  # metadata
-                driver=img_ds.driver,
-                resolucao_espacial=(
-                    img_ds.get_transform()[1],
-                    img_ds.get_transform()[5],
-                ),
-            )
+            response = {
+                'MD_Distribution-distributionFormat-name': img_ds.driver,
+                'MD_DataIdentification-extent-geographicElement1-northBoundLatitude':img_ds.bounds[0],
+                'MD_DataIdentification-extent-geographicElement1-westBoundLongitude':img_ds.bounds[1],
+                'MD_DataIdentification-extent-geographicElement1-eastBoundLongitude':img_ds.bounds[2],
+                'MD_DataIdentification-extent-geographicElement1-southBoundLatitude':img_ds.bounds[3],
+                'MD_DataIdentification-spatialRepresentationType': 'Matricial',
+                'MD_DataIdentification-spatialResolution-distance': 'dummy',
+                'MD_DataIdentification-spatialResolution-distance': 'dummy',
+                'MD_Identification-citation-alternateTitle': 'dummy',
+                'MD_Identification-citation-alternateTitle': 'dummy'
+            }
         return response
     except Exception as _:
         raise Exception("Erro na hora de ler o arquivo")
