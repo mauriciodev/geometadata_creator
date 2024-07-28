@@ -37,11 +37,11 @@ class grid_utm:
         return id
 
     def getScale(self, inomen):
-        return self.scales[self.getScaleIdFromiNomen(inomen)]*1000
+        return self.scales[self.getScaleIdFromiNomen(inomen)] * 1000
 
     def computeSpacingX(self):
         if len(self.spacingX) == 0:
-            dx = 6
+            dx = 6.0
             self.spacingX = [dx]
             for i in range(1, len(self.scaleText)):
                 subdivisions = len(self.scaleText[i][0])
@@ -58,7 +58,7 @@ class grid_utm:
 
     def computeSpacingY(self):
         if len(self.spacingY) == 0:
-            dy = 4
+            dy = 4.0
             self.spacingY = [dy]
             for i in range(1, len(self.scaleText)):
                 subdivisions = len(self.scaleText[i])

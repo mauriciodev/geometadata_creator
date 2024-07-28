@@ -13,7 +13,7 @@ def create_example() -> RasterExtractableInfo:
 
     driver = "GTiff"
     resx, resy = 1.0, -1.0
-    left, bottom, right, top = 0, 0, 1, 1
+    wb, sb, eb, nb = 0, 0, 1, 1
     Z = zeros((1, 1), dtype=float64)
 
     # Write the example to disk
@@ -26,15 +26,22 @@ def create_example() -> RasterExtractableInfo:
         count=1,
         dtype=Z.dtype,
         crs="+proj=latlong",
-        transform=rasterio.Affine(resx, 0.0, left, 0.0, resy, top),
+        transform=rasterio.Affine(resx, 0.0, wb, 0.0, resy, nb),
     ) as dst:
         dst.write(Z, 1)
 
     # Return the correct value
     return RasterExtractableInfo(
-        extensao_espacial=(left, bottom, right, top),
+        north_bound_lat=nb,
+        south_bound_lat=sb,
+        east_bound_lon=eb,
+        west_bound_lon=wb,
         driver=driver,
-        resolucao_espacial=(resx, resy),
+        epsg_code=4326,
+        scale_denominator1=100000,
+        scale_denominator2=100000,
+        inom="",
+        mi="",
     )
 
 
@@ -55,7 +62,8 @@ class GMDExtractorTests(TestCase):
         Ensure that the values collected are correct
         """
         response = parse_file("core/tests/test_data/example.tif")
-        self.assertEqual(response.model_dump(), self.solution.model_dump())
+        # self.assertEqual(response, self.solution)
+        self.assertDictEqual(response.model_dump(), self.solution.model_dump())
 
     def tearDown(self) -> None:
         remove(RASTEREXAMPLE)

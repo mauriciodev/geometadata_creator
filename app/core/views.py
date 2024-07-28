@@ -59,26 +59,23 @@ class GeoresourceUploadAPIView(APIView):
             "geodata_file"
         ].temporary_file_path()
         try:
-            metadata_response = parse_file(geodata_file)
+            metadata_response = parse_file(geodata_file).model_dump()
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
         serializer.save()
-        metadata_response['MD_Metadata-fileIdentifier'] = serializer.data['metadata_id']
-        
-        
+        metadata_response["MD_Metadata-fileIdentifier"] = serializer.data["metadata_id"]  # type: ignore
 
         return Response(
-            {
-                "serializer_data": serializer.data,
-                'metadata': metadata_response
-            }, status=status.HTTP_201_CREATED  # type: ignore
+            {"serializer_data": serializer.data, "metadata": metadata_response},
+            status=status.HTTP_201_CREATED,  # type: ignore
         )
 
 
 class ProductTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ProductType.objects.all()
     serializer_class = ProductTypeSerializer
+
 
 class metadata_responsible_individual(APIView):
     """
@@ -89,18 +86,18 @@ class metadata_responsible_individual(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
-        #Entrada: "MD_Metadata-contact-individualName": "Han Solo",
+        # Entrada: "MD_Metadata-contact-individualName": "Han Solo",
         response = {
-            '1': {
+            "1": {
                 "MD_Metadata-contact-individualName": "Han Solo",
                 "MD_Metadata-contact-positionName": "Chefe de Subdivisão Técnica",
                 "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
                 "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
-                "MD_Metadata-contact-role": "owner"
+                "MD_Metadata-contact-role": "owner",
             }
-            
         }
         return Response(response)
+
 
 class metadata_responsible_organization(APIView):
     """
@@ -111,16 +108,16 @@ class metadata_responsible_organization(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
-        #Entrada: "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
+        # Entrada: "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
         response = {
-            '1': {
+            "1": {
                 "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
                 "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
-                "MD_Metadata-contact-role": "owner"
+                "MD_Metadata-contact-role": "owner",
             }
-            
         }
         return Response(response)
+
 
 class metadata_project(APIView):
     """
@@ -131,13 +128,14 @@ class metadata_project(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
-        #Entrada: 
+        # Entrada:
         response = {
-            '1': {
+            "1": {
                 "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
             }
         }
         return Response(response)
+
 
 class vertical_datum(APIView):
     """
@@ -148,11 +146,11 @@ class vertical_datum(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
-        #Não tem entrada
+        # Não tem entrada
         response = {
-            '1': {
+            "1": {
                 "MD_DataIdentification-extent-verticalExtent-verticalDatum": "",
             }
-            
         }
         return Response(response)
+

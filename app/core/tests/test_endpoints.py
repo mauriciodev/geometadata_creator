@@ -25,7 +25,6 @@ class GeospatialResourceTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(GeospatialResource.objects.count(), 1)
-        # self.assertEqual(GeospatialResource.objects.get().name, 'DabApps')
 
     def test_upload_shp(self):
         "Not implemented: Ensure that we can upload vector files."
