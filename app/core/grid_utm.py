@@ -2,20 +2,19 @@ import numpy as np
 import rasterio
 from rasterio import warp
 
-
 class grid_utm:
     def __init__(self, EPSG=4674):
         self.scales = [1000, 500, 250, 100, 50, 25, 10, 5, 2, 1]
         nomen1000 = []
-        nomen500 = [["V", "X"], ["Y", "Z"]]
-        nomen250 = [["A", "B"], ["C", "D"]]
-        nomen100 = [["I", "II", "III"], ["IV", "V", "VI"]]
-        nomen50 = [["1", "2"], ["3", "4"]]
-        nomen25 = [["NO", "NE"], ["SO", "SE"]]
-        nomen10 = [["A", "B"], ["C", "D"], ["E", "F"]]
-        nomen5 = [["I", "II"], ["III", "IV"]]
-        nomen2 = [["1", "2", "3"], ["4", "5", "6"]]  # map(str,range(1,7))
-        nomen1 = [["A", "B"], ["C", "D"]]
+        nomen500 = np.array([["V", "X"], ["Y", "Z"]])
+        nomen250 = np.array([["A", "B"], ["C", "D"]])
+        nomen100 = np.array([["I", "II", "III"], ["IV", "V", "VI"]])
+        nomen50 = np.array([["1", "2"], ["3", "4"]])
+        nomen25 = np.array([["NO", "NE"], ["SO", "SE"]])
+        nomen10 = np.array([["A", "B"], ["C", "D"], ["E", "F"]])
+        nomen5 = np.array([["I", "II"], ["III", "IV"]])
+        nomen2 = np.array([["1", "2", "3"], ["4", "5", "6"]])  # map(str,range(1,7))
+        nomen1 = np.array([["A", "B"], ["C", "D"]])
         self.spacingX = []
         self.spacingY = []
 
@@ -86,8 +85,8 @@ class grid_utm:
         fit_whole_product = False
         spacingX = np.array(self.computeSpacingX())
         spacingY = np.array(self.computeSpacingY())
-        scaleX = np.argmax(spacingX < xmax - xmin)
-        scaleY = np.argmax(spacingY < ymax - ymin)
+        scaleX = np.argmax(spacingX <= xmax - xmin)
+        scaleY = np.argmax(spacingY <= ymax - ymin)
         scale_id = min(scaleX, scaleY)
         scale = self.scales[scale_id]
         center_lat = (ymin + ymax) / 2.0
@@ -124,12 +123,73 @@ class grid_utm:
         for calc_scale_id in range(1, scale_id + 1):
             text = get_inomen_part(center_lat, center_lon, calc_scale_id)
             inomen += f"-{text}"
-        return inomen
+        
+        #check if it covers the entire product
+        expected_extent = self.extentFromInomen(inomen)
+        if (    xmin <= expected_extent[0] 
+            and ymin <= expected_extent[1] 
+            and xmax >= expected_extent[2] 
+            and ymax >= expected_extent[3]
+            ):
+            return inomen
+        else:
+            return ""
 
     def getInomenFromRasterio(self, fname):
         ds = rasterio.open(fname)
         LL_bounds = warp.transform_bounds(ds.crs, 4326, *ds.bounds)
         return self.inomenFromExtent(*LL_bounds)
+
+    def getHemisphereMultiplier(self,inomen):
+        #Check hemisphere
+        if (len(inomen) > 1):
+            h = inomen[0].upper()
+            if (h=='S'):
+                return -1
+            else:
+                return 1
+        else: 
+            return 0
+
+    #Starting latitude at scale 1:1.000.000
+    def getULCornerLatitude1kk(self,inomen_part):
+        l = inomen_part[1].upper()
+        y = 0.0
+        operator = self.getHemisphereMultiplier(inomen_part)
+        verticalPosition=ord(l)-ord('A')
+        y=y+4*verticalPosition*operator
+        if (operator>0): y+=4
+        return y
+
+    #Starting longitude at scale 1:1.000.000 (UTM zone)
+    def getULCornerLongitude1kk(self,inomen_part):
+        fuso=int(inomen_part)
+        x=0  
+        if((fuso > 0) and (fuso <= 60)):
+            x = (fuso-1)*6.0 -180.
+        return x
+    
+    def extentFromInomen(self, inomen):
+        inomen_parts = inomen.split('-')
+        LLlat=LLlon=0.
+        scaleId=0
+        for i,inomen_part in enumerate(inomen_parts):
+            if i==0:
+                LLlat = self.getULCornerLatitude1kk(inomen)
+            elif i==1:
+                LLlon = self.getULCornerLongitude1kk(inomen_part)
+            else:
+                scaleId = i-1
+                #TODO:this should check against bad inomen
+                scaleText = np.argwhere(self.scaleText[scaleId] == inomen_part)
+                if len(scaleText) == 0:
+                    break #if there is a problem with the inomen, stops computation where it's still working.
+                scale_div = scaleText[0]
+                LLlon+=scale_div[1]*self.spacingX[scaleId]
+                LLlat-=scale_div[0]*self.spacingY[scaleId]
+        return(LLlon,LLlat-self.spacingY[scaleId],LLlon+self.spacingX[scaleId],LLlat)
+
+        
 
 
 if __name__ == "__main__":

@@ -31,4 +31,20 @@ class IndexMapTests(TestCase):
         """Ensure that MI and INOM are being computed correctly from a raster file."""
         filename = 'core/tests/test_data/recorte.tif'
         self.assertTrue(os.path.exists(filename))
-        self.assertEqual(IndexMap.objects.get_inomen_mi_from_rasterio(filename),('SD-21-V-A-II-4-SO-C', '1863-4-SO-C'))
+        #Não sistemático
+        self.assertEqual(IndexMap.objects.get_inomen_mi_from_rasterio(filename),('', ''))
+
+    def test_inomen_to_extent(self):
+        """Ensure extent is being computed correctly from INomen."""
+        grid_utm = IndexMap.objects.get_grid_utm()
+        self.assertEqual(grid_utm.extentFromInomen('SF-23-Y-B-I-1-SE'), (-46.375,-22.250,-46.250,-22.125))
+        self.assertEqual(grid_utm.extentFromInomen('SF-23-A-B-I-1-SE'), (-48,-22,-45,-20))
+
+        
+        
+    def test_extent_to_inomen(self):
+        """Ensure INomen is being computed correctly from extent."""
+        grid_utm = IndexMap.objects.get_grid_utm()
+        self.assertEqual(grid_utm.inomenFromExtent(-46.375,-22.250,-46.250,-22.125),'SF-23-Y-B-I-1-SE')
+        self.assertEqual(grid_utm.inomenFromExtent(-46.365,-22.230,-46.150,-22.125),'') #Not a whole product
+        
