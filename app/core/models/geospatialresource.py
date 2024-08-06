@@ -9,7 +9,7 @@ class GeospatialResource(models.Model):
     title = models.CharField(max_length=200, blank=True)
     metadata_file = models.FileField(
         "Geospatial metadata XML.", null=True, blank=True, upload_to="repository"
-    )
+    ) #adicionar extrair uuid do metadata_file
     geodata_file = models.FileField(
         "Geospatial data file.", null=True, blank=True, upload_to="repository"
     )

@@ -4,7 +4,7 @@ from rasterio import warp
 
 class grid_utm:
     def __init__(self, EPSG=4674):
-        self.scales = [1000, 500, 250, 100, 50, 25, 10, 5, 2, 1]
+        self.scales= [1000, 500, 250, 100, 50, 25, 10, 5, 2, 1]
         nomen1000 = []
         nomen500 = np.array([["V", "X"], ["Y", "Z"]])
         nomen250 = np.array([["A", "B"], ["C", "D"]])
@@ -30,6 +30,8 @@ class grid_utm:
             nomen2,
             nomen1,
         ]
+        self.computeSpacingX()
+        self.computeSpacingY()
 
     def getScaleIdFromiNomen(self, inomen):
         id = len(inomen.split("-")) - 2
@@ -194,12 +196,19 @@ class grid_utm:
 
 if __name__ == "__main__":
     test = grid_utm()
-    print(test.computeSpacingX())
-    print(test.computeSpacingY())
-    print(test.getSpacingX(25))
-
+    #print(test.computeSpacingX())
+    #print(test.computeSpacingY())
+    #print(test.getSpacingX(25))
+    import time
+    from datetime import timedelta
+    start_time = time.monotonic()
+    for i in range(0,10000):
+        test.extentFromInomen("SF-23-Y-B-I-1-SE") #;//, (-46.375,-22.250,-46.250,-22.125)    
+        test.inomenFromExtent(-46.375,-22.250,-46.250,-22.125)#;
+    end_time = time.monotonic()
+    print(timedelta(seconds=end_time - start_time))
     # print(test.getInomenFromRasterio('core/test_data/recorte.tif'))
-    print(
+    """print(
         test.getInomenFromRasterio(
             "/home/mauricio/Desktop/Doutorado_psq/PFC_2024/geometadata_creator/SCN_Carta_Topografica_Matricial-0017−2−NE-NB-22-Y-D-V-2-NE-25.000.tif"
         )
@@ -213,4 +222,4 @@ if __name__ == "__main__":
         test.getInomenFromRasterio(
             "/home/mauricio/Desktop/Doutorado_psq/PFC_2024/geometadata_creator/SCN_Carta_Topografica_Matricial-PORTOALEGRE-SE-SH-22-Y-B-III-2-SE-25.000.tif"
         )
-    )
+    )"""
