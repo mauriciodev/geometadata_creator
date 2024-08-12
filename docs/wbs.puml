@@ -1,0 +1,24 @@
+@startwbs
+* GMD_Creator
+** Formulário de criação de metadados
+*** Construção do formulário pela API
+*** Componentes de upload
+*** Consulta a API do Cadastro Geral
+** API de upload
+*** Extração de metadados do arquivo geo
+*** Identificação de MI/Índice de nomenclatura
+*** Armazenamento dos arquivos
+** API de validação de XML
+*** Validação da estrutura (XSD)
+*** Validação dos preenchimento (PCDG)
+** Sistema de administração
+*** Publicação no servidor CSW
+*** Gestão dos campos dos formulários de produtos
+** API de Interface do Cadastro Geral
+*** Responsável técnico
+*** Sistema de referência vertical
+*** Normas técnicas
+@endwbs
+
+
+
