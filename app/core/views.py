@@ -29,21 +29,6 @@ def show_csw_metadata(request):
     return render(request, "gmd_creator/show_csw_metadata.html", context)
 
 
-class hello_world(APIView):
-    """
-    Can be accessed read only.
-    """
-
-    # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
-    def get(self, request, format=None):
-        response = {
-            "gmd:distributionFormat gmd:name gco:CharacterString": "Shape File",
-        }
-        return Response(response)
-
-
 class GeoresourceUploadAPIView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     parser_classes = (MultiPartParser, FormParser)
@@ -131,7 +116,7 @@ class metadata_project(APIView):
         # Entrada:
         response = {
             "1": {
-                "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
+                "MD_Identification-citation-collectiveTitle": "Radiografia da Amazônia",
             }
         }
         return Response(response)
@@ -149,8 +134,7 @@ class vertical_datum(APIView):
         # Não tem entrada
         response = {
             "1": {
-                "MD_DataIdentification-extent-verticalExtent-verticalDatum": "",
+                "MD_DataIdentification-extent-verticalExtent-verticalDatum": "Datum de Imbituba - SC",
             }
         }
         return Response(response)
-
