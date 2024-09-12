@@ -1,5 +1,5 @@
 "id","label","iso_xml_path","field_type","is_static","possible_values","default_value","comments","old_path"
-1,"Identificador metadados","MD_Metadata-fileIdentifier","string","TRUE",,,"Gerar na api de upload","/gmd:MD_Metadata/gmd:fileIdentifier/gco:CharacterString>"
+1,"Identificador metadados","MD_Metadata-fileIdentifier","string","TRUE",,,"Gerar na api de upload","/gmd:MD_Metadata/gmd:fileIdentifier/gco:CharacterString"
 2,"Responsável pelas informações de metadados/CREA","MD_Metadata-contact-individualName","string","FALSE",,,"Buscar na api do cadastro geral. Responsável pelo metadado.","/gmd:MD_Metadata/gmd:contact[1]/gmd:CI_ResponsibleParty/gmd:individualName/gco:CharacterString"
 3,"Função do responsável","MD_Metadata-contact-positionName","string","TRUE",,,"Buscar na api do cadastro geral. Responsável pelo metadado.","/gmd:MD_Metadata/gmd:contact[1]/gmd:CI_ResponsibleParty/gmd:positionName/gco:CharacterString"
 4,"Nome da organização","MD_Metadata-contact-organisationName","string","TRUE",,,"Buscar na api do cadastro geral. Responsável pelo metadado.","/gmd:MD_Metadata/gmd:contact[1]/gmd:CI_ResponsibleParty/gmd:organisationName/gco:CharacterString"

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "simple_history",
     "admin_extra_buttons",
     "drf_spectacular",
+    "xml_handler",
     "core",
 ]
 
