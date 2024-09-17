@@ -6,6 +6,7 @@ from owslib import util
 
 
 class MetadataFormField(models.Model):
+    id = models.BigAutoField(primary_key=True)
     label = models.CharField(max_length=100, blank=True)
     iso_xml_path = models.CharField(max_length=200, blank=True)
     field_types = {
@@ -26,6 +27,7 @@ class MetadataFormField(models.Model):
 
 
 class ProductType(models.Model):
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=100, blank=True)
     metadata_fields = models.ManyToManyField(MetadataFormField)
     xml_template = models.FileField(

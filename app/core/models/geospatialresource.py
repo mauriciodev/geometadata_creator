@@ -4,12 +4,14 @@ from simple_history.models import HistoricalRecords
 from django.conf import settings
 from owslib import csw, iso
 
+
 class GeospatialResource(models.Model):
+    id = models.BigAutoField(primary_key=True)
     metadata_id = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200, blank=True)
     metadata_file = models.FileField(
         "Geospatial metadata XML.", null=True, blank=True, upload_to="repository"
-    ) #adicionar extrair uuid do metadata_file
+    )  # adicionar extrair uuid do metadata_file
     geodata_file = models.FileField(
         "Geospatial data file.", null=True, blank=True, upload_to="repository"
     )

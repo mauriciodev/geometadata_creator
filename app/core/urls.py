@@ -3,14 +3,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
 from core.views import (
+    GeoresourceUploadAPIView,
+    ProductTypeViewSet,
     show_csw_metadata,
-    metadata_responsible_individual,
-    metadata_responsible_organization,
-    metadata_project,
+    # vertical_datum,
+    # metadata_responsible_individual,
+    # metadata_responsible_organization,
+    # metadata_project,
 )
 from core.models import GeospatialResource
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from .views import GeoresourceUploadAPIView, ProductTypeViewSet, vertical_datum
 
 
 # Serializers define the API representation.
@@ -43,28 +44,28 @@ urlpatterns = [
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += [
     path(
-        "upload-georesource/",
+        "geoproduct/",
         GeoresourceUploadAPIView.as_view(),
-        name="upload-georesource",
+        name="geoproduct",
     ),
-    path(
-        "metadata_responsible_individual/",
-        metadata_responsible_individual.as_view(),
-        name="metadata_responsible_individual",
-    ),
-    path(
-        "metadata_responsible_organization/",
-        metadata_responsible_organization.as_view(),
-        name="metadata_responsible_organization",
-    ),
-    path(
-        "metadata_project",
-        metadata_project.as_view(),
-        name="metadata_project",
-    ),
-    path(
-        "vertical_datum",
-        vertical_datum.as_view(),
-        name="vertical_datum",
-    ),
+    # path(
+    #     "metadata_responsible_individual/",
+    #     metadata_responsible_individual.as_view(),
+    #     name="metadata_responsible_individual",
+    # ),
+    # path(
+    #     "metadata_responsible_organization/",
+    #     metadata_responsible_organization.as_view(),
+    #     name="metadata_responsible_organization",
+    # ),
+    # path(
+    #     "metadata_project",
+    #     metadata_project.as_view(),
+    #     name="metadata_project",
+    # ),
+    # path(
+    #     "vertical_datum",
+    #     vertical_datum.as_view(),
+    #     name="vertical_datum",
+    # ),
 ]
