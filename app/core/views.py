@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.conf import settings
 
 from rest_framework import status
-from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import action
 
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -13,8 +14,6 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from file_handler.extractor import parse_file
 from core.serializers import GeoresourceUploadSerializer, ProductTypeSerializer
 from core.models import ProductType, GeospatialResource
-
-# Create your views here.
 
 
 def show_csw_metadata(request):
@@ -46,7 +45,7 @@ class GeoresourceUploadAPIView(APIView):
 
         # Validate the georesource file
         try:
-            metadata_response = parse_file(geodata_file).model_dump()
+            _ = parse_file(geodata_file).model_dump()
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
@@ -63,85 +62,95 @@ class GeoresourceUploadAPIView(APIView):
             status=status.HTTP_201_CREATED,  # type: ignore
         )
 
+    @action(detail=True, methods=["POST"], pk=None)
+    def build_metadata(self, request: HttpRequest):
+        fields = request.POST["fields"]
+
+        # Validar os dados
+
+        # Construir o XML
+
+        # Validar o XML
+
 
 class ProductTypeViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ProductType.objects.all()
     serializer_class = ProductTypeSerializer
 
 
-# class metadata_responsible_individual(APIView):
-#     """
-#     Can be accessed read only.
-#     """
-#
-#     # authentication_classes = [authentication.TokenAuthentication]
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#
-#     def get(self, request, format=None):
-#         # Entrada: "MD_Metadata-contact-individualName": "Han Solo",
-#         response = {
-#             "1": {
-#                 "MD_Metadata-contact-individualName": "Han Solo",
-#                 "MD_Metadata-contact-positionName": "Chefe de Subdivisão Técnica",
-#                 "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
-#                 "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
-#                 "MD_Metadata-contact-role": "owner",
-#             }
-#         }
-#         return Response(response)
-#
-#
-# class metadata_responsible_organization(APIView):
-#     """
-#     Can be accessed read only.
-#     """
-#
-#     # authentication_classes = [authentication.TokenAuthentication]
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#
-#     def get(self, request, format=None):
-#         # Entrada: "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
-#         response = {
-#             "1": {
-#                 "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
-#                 "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
-#                 "MD_Metadata-contact-role": "owner",
-#             }
-#         }
-#         return Response(response)
-#
-#
-# class metadata_project(APIView):
-#     """
-#     Can be accessed read only.
-#     """
-#
-#     # authentication_classes = [authentication.TokenAuthentication]
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#
-#     def get(self, request, format=None):
-#         # Entrada:
-#         response = {
-#             "1": {
-#                 "MD_Identification-citation-collectiveTitle": "Radiografia da Amazônia",
-#             }
-#         }
-#         return Response(response)
-#
-#
-# class vertical_datum(APIView):
-#     """
-#     Can be accessed read only.
-#     """
-#
-#     # authentication_classes = [authentication.TokenAuthentication]
-#     permission_classes = [IsAuthenticatedOrReadOnly]
-#
-#     def get(self, request, format=None):
-#         # Não tem entrada
-#         response = {
-#             "1": {
-#                 "MD_DataIdentification-extent-verticalExtent-verticalDatum": "Datum de Imbituba - SC",
-#             }
-#         }
-#         return Response(response)
+class metadata_responsible_individual(APIView):
+    """
+    Can be accessed read only.
+    """
+
+    # authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        # Entrada: "MD_Metadata-contact-individualName": "Han Solo",
+        response = {
+            "1": {
+                "MD_Metadata-contact-individualName": "Han Solo",
+                "MD_Metadata-contact-positionName": "Chefe de Subdivisão Técnica",
+                "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
+                "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
+                "MD_Metadata-contact-role": "owner",
+            }
+        }
+        return Response(response)
+
+
+class metadata_responsible_organization(APIView):
+    """
+    Can be accessed read only.
+    """
+
+    # authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        # Entrada: "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
+        response = {
+            "1": {
+                "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
+                "MD_Metadata-contact-contactInfo-onlineResource-linkage": "http://www.1cgeo.eb.mil.br/",
+                "MD_Metadata-contact-role": "owner",
+            }
+        }
+        return Response(response)
+
+
+class metadata_project(APIView):
+    """
+    Can be accessed read only.
+    """
+
+    # authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        # Entrada:
+        response = {
+            "1": {
+                "MD_Identification-citation-collectiveTitle": "Radiografia da Amazônia",
+            }
+        }
+        return Response(response)
+
+
+class vertical_datum(APIView):
+    """
+    Can be accessed read only.
+    """
+
+    # authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, format=None):
+        # Não tem entrada
+        response = {
+            "1": {
+                "MD_DataIdentification-extent-verticalExtent-verticalDatum": "Datum de Imbituba - SC",
+            }
+        }
+        return Response(response)
