@@ -27,13 +27,13 @@ urlpatterns += [
     ),
     path("show_csw_metadata", show_csw_metadata),
     path(
-        UF.metadata_responsible_individual.value,
+        f"cadastro_geral/{UF.metadata_responsible_individual.value}",
         metadata_responsible_individual.as_view(),
     ),
     path(
-        UF.metadata_responsible_organization.value,
+        f"cadastro_geral/{UF.metadata_responsible_organization.value}",
         metadata_responsible_organization.as_view(),
     ),
-    path(UF.metadata_project.value, metadata_project.as_view()),
-    path(UF.vertical_datum.value, vertical_datum.as_view()),
+    path(f"cadastro_geral/{UF.metadata_project.value}", metadata_project.as_view()),
+    path(f"cadastro_geral/{UF.vertical_datum.value}", vertical_datum.as_view()),
 ]
