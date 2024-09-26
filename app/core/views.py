@@ -45,19 +45,20 @@ class GeoresourceUploadAPIView(APIView):
 
         # Validate the georesource file
         try:
-            _ = parse_file(geodata_file).model_dump()
+            file_fields = parse_file(geodata_file).model_dump()
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
         georesource = GeospatialResource.objects.create(geodata_file=geodata_file)
 
         # Pegar os tipos de produtos
-        product_types_serializer = ProductTypeSerializer(ProductType.objects.all())
+        product_type_names = [pd.name for pd in ProductType.objects.all()]
 
         return Response(
             {
                 "file_id": georesource.id,
-                "product_types": product_types_serializer.data,
+                "product_types": product_type_names,
+                "file_fields": file_fields,
             },  # Adicionar os tipos de produto possível
             status=status.HTTP_201_CREATED,  # type: ignore
         )
