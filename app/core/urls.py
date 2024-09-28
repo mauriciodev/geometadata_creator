@@ -14,17 +14,13 @@ from core.fields import UniversalFields as UF
 
 urlpatterns = []
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register(r"product_types", ProductTypeViewSet)
+router.register(r"geoproduct", GeoresourceUploadAPIView)
 urlpatterns.append(path("", include(router.urls)))
 
 
 urlpatterns += [
-    path(
-        "geoproduct/",
-        GeoresourceUploadAPIView.as_view(),
-        name="geoproduct",
-    ),
     path("show_csw_metadata", show_csw_metadata),
     path(
         f"cadastro_geral/{UF.metadata_responsible_individual.value}",
