@@ -52,3 +52,6 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             status=status.HTTP_201_CREATED,  # type: ignore
         )
 
+    @action(detail=True, methods=["POST"])
+    def build_metadata(self, request: HttpRequest, id=None):
+        return Response({}, status=status.HTTP_201_CREATED)
