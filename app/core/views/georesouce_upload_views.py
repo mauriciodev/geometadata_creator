@@ -14,7 +14,6 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 
 from file_handler.extractor import parse_file
-from rest_framework.serializers import Serializer
 from core.serializers import (
     GeoresourceUploadSerializer,
     XMLSerializer,
@@ -44,7 +43,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         try:
             file_fields = parse_file(geodata_file).model_dump()
         except Exception as e:
-            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
         georesource = GeospatialResource.objects.create(geodata_file=geodata_file)
 
