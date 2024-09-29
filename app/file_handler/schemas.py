@@ -9,20 +9,22 @@ from core.fields import FileExtractedFields as FEF
 
 
 class FileExtractedFields(BaseModel):
-    north_bound_lat: float = Field(alias=FEF.north_bound_lat)
-    south_bound_lat: float = Field(alias=FEF.south_bound_lat)
-    east_bound_lon: float = Field(alias=FEF.east_bound_lon)
-    west_bound_lon: float = Field(alias=FEF.west_bound_lon)
+    north_bound_lat: float = Field(alias=FEF.north_bound_lat.name)
+    south_bound_lat: float = Field(alias=FEF.south_bound_lat.name)
+    east_bound_lon: float = Field(alias=FEF.east_bound_lon.name)
+    west_bound_lon: float = Field(alias=FEF.west_bound_lon.name)
     data_representation_type: Literal["Matricial", "Vetorial"] = Field(
-        alias=FEF.data_representation_type
+        alias=FEF.data_representation_type.name, default="Matricial"
     )
-    epsg_code: int = Field(alias=FEF.epsg_code)
-    driver: str = Field(alias=FEF.driver)
-    scale_denominator1: int = Field(alias=FEF.scale_denominator1)
-    scale_denominator2: int = Field(alias=FEF.scale_denominator2)
-    inom: str = Field(alias=FEF.inom)
-    mi: str = Field(alias=FEF.mi)
-    spatial_resolution: int | None = Field(alias=FEF.spatial_resolution, default=None)
+    epsg_code: int = Field(alias=FEF.epsg_code.name)
+    driver: str = Field(alias=FEF.driver.name)
+    scale_denominator1: int = Field(alias=FEF.scale_denominator1.name)
+    scale_denominator2: int = Field(alias=FEF.scale_denominator2.name)
+    inom: str = Field(alias=FEF.inom.name)
+    mi: str = Field(alias=FEF.mi.name)
+    spatial_resolution: int | None = Field(
+        alias=FEF.spatial_resolution.name, default=None
+    )
 
     @model_validator(mode="after")
     def check_model_validation(self) -> Self:
