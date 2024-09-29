@@ -41,7 +41,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
 
         # Validate the georesource file
         try:
-            file_fields = parse_file(geodata_file).model_dump()
+            file_fields = parse_file(geodata_file).dump_fields()
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
