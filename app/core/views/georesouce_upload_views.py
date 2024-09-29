@@ -14,12 +14,14 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 
 from file_handler.extractor import parse_file
+from rest_framework.serializers import Serializer
 from core.serializers import (
     GeoresourceUploadSerializer,
-    MetadataFieldsSerializer,
     XMLSerializer,
+    BuildMetadataSerializer,
 )
 from core.models import ProductType, GeospatialResource
+from core.fields import UniversalFields as UF
 
 
 class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
@@ -63,10 +65,56 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
     @action(
         detail=True,
         methods=["POST"],
-        serializer_class=MetadataFieldsSerializer,
+        serializer_class=BuildMetadataSerializer,
         parser_classes=(JSONParser,),
     )
-    def build_metadata(self, request: HttpRequest, id=None):
+    def build_metadata(self, request: HttpRequest, pk=None):
+        """
+        Pass the metadata fields with its respective values:
+            - Validate the them against the file's information;
+            - Validate the contact information agaist the logged databases;
+            - Create the XML metadata file;
+        """
+        # Validate the sent information is in the format and that the labels exists
+        serializer = BuildMetadataSerializer(data=getattr(request, "data"))
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(serializer.validated_data["metadata_fields"])  # type: ignore
+        recived_fields = {field["label"]: field["value"] for field in serializer.validated_data["metadata_fields"]}  # type: ignore
+
+        # Get the field that contains the type of product
+        product_type = ProductType.objects.get(
+            label=next(
+                iso_path
+                for iso_path in recived_fields
+                if iso_path == UF.product_type.value
+            )
+        )
+        correct_fields = {pt.label for pt in product_type.metadata_fields.all()}
+
+        # Check if the fields sent are correct
+        error_fields = {}
+        error_fields.update(
+            {
+                label: "Fields missing but was expected."
+                for label in correct_fields
+                if label not in recived_fields.keys()
+            }
+        )
+        error_fields.update(
+            {
+                label: "Field does not belong to this product type."
+                for label in recived_fields.keys()
+                if label not in correct_fields
+            }
+        )
+        if len(error_fields) > 0:
+            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
+
+        # Check for the file related fields
+
+        # Check for the cadastro geral fields
+
         return Response({}, status=status.HTTP_201_CREATED)
 
     @action(
