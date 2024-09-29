@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny
 
 
 class metadata_responsible_individual(APIView):
@@ -9,7 +9,7 @@ class metadata_responsible_individual(APIView):
     """
 
     # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         # Entrada: "MD_Metadata-contact-individualName": "Han Solo",
@@ -31,7 +31,7 @@ class metadata_responsible_organization(APIView):
     """
 
     # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         # Entrada: "MD_Metadata-contact-organisationName": "1º Centro de Geoinformação",
@@ -51,7 +51,7 @@ class metadata_project(APIView):
     """
 
     # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         # Entrada:
@@ -69,7 +69,7 @@ class vertical_datum(APIView):
     """
 
     # authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [AllowAny]
 
     def get(self, request, format=None):
         # Não tem entrada

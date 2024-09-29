@@ -1,22 +1,30 @@
 from django.http import HttpRequest
 
 from rest_framework import status
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import (
+    FormParser,
+    JSONParser,
+    MultiPartParser,
+)
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 
 from file_handler.extractor import parse_file
-from core.serializers import GeoresourceUploadSerializer
+from core.serializers import (
+    GeoresourceUploadSerializer,
+    MetadataFieldsSerializer,
+    XMLSerializer,
+)
 from core.models import ProductType, GeospatialResource
 
 
 class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticatedOrReadOnly]
     parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [AllowAny]
     serializer_class = GeoresourceUploadSerializer
     queryset = GeospatialResource.objects.all()
 
@@ -52,6 +60,20 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             status=status.HTTP_201_CREATED,  # type: ignore
         )
 
-    @action(detail=True, methods=["POST"])
+    @action(
+        detail=True,
+        methods=["POST"],
+        serializer_class=MetadataFieldsSerializer,
+        parser_classes=(JSONParser,),
+    )
     def build_metadata(self, request: HttpRequest, id=None):
+        return Response({}, status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=True,
+        methods=["POST"],
+        serializer_class=XMLSerializer,
+        parser_classes=(MultiPartParser, FormParser),
+    )
+    def send_xml_metadata(self, request: HttpRequest, id=None):
         return Response({}, status=status.HTTP_201_CREATED)
