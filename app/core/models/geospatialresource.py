@@ -22,7 +22,19 @@ class GeospatialResource(models.Model):
     history = HistoricalRecords()
 
     def csw_insert(self):  # publish
-        pass
+        csw_url = "http://localhost:8088/csw"
+        cswClient = csw.CatalogueServiceWeb(csw_url)
+
+        fname = str(self.metadata_file)
+        #= '/home/mauricio/Desktop/Doutorado_psq/PFC_2024/geometadata_creator/examples/PORTO ALEGRE - valido.xml'
+        f = open(fname)
+        try:
+            cswClient.transaction(ttype='insert', typename='gmd:MD_Metadata', record=f.read().encode('utf-8'))
+            return "Done."
+        except:
+            return "Error saving metadata."
+
+
 
     def csw_get(self, metadataid, csw_url=""):
         if csw_url == "":
