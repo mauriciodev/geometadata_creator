@@ -31,24 +31,30 @@ services:
   #     - gmd_creator
   #     - pycsw
   #
-  pycsw: #Catalogue Service for the Web (CSW)
-    container_name: pycsw
-    ports:
-    - '8088:8000'
-    #volumes:
-      #- '${PWD}/configs/pycsw.cfg:/etc/pycsw/pycsw.cfg:ro'
-      #- "${PWD}/logs/pycsw/:/var/log/pycsw/"
-    restart: always
+
+  db:
+    container_name: db
+    image: postgis/postgis:12-3.0-alpine
     environment:
-      #POSTGRES_PASSWORD: test
-      #POSTGRES_USER: postgres
-      PYCSW_SERVER_URL: http://localhost:8088
-      #PYCSW_SERVER_URL: http://localhost:8000      
-    logging:
-      options:
-        max-size: 1g
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypass
+      POSTGRES_DB: pycsw
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+
+  pycsw:
+    container_name: pycsw
     image: geopython/pycsw
-    manager:
-        transactions: false
-        allowed_ips:
-            - 127.0.0.1
+    environment:
+        PYCSW_SERVER_URL: http://localhost:8088
+    ports:
+      - 8088:8000
+    volumes:
+      - ./configs/pycsw.yml:/etc/pycsw/pycsw.yml
+
+
+volumes:
+  db-data:
