@@ -122,5 +122,5 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         serializer_class=XMLSerializer,
         parser_classes=(MultiPartParser, FormParser),
     )
-    def send_xml_metadata(self, request: HttpRequest, id=None):
+    def send_xml_metadata(self, request: HttpRequest, pk=None):
         return Response({}, status=status.HTTP_201_CREATED)
