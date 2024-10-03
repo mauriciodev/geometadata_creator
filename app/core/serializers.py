@@ -2,6 +2,10 @@ from rest_framework import serializers
 from core.models import ProductType, GeospatialResource, MetadataFormField
 
 
+class CadastroGeralSerializer(serializers.Serializer):
+    metadata_fields = serializers.ListSerializer(child=serializers.CharField())
+
+
 class GeoresourceUploadSerializer(serializers.ModelSerializer):
 
     class Meta:
