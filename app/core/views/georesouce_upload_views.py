@@ -15,7 +15,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 from xml_handler.constructor import fill_xml_template
-from file_handler.extractor import parse_file
 from core.serializers import (
     GeoresourceUploadSerializer,
     SendXMLSerializer,
@@ -148,7 +147,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             )
 
         # Check if there is a miss match between the fields provided and the ones extracted from the file
-        extracted_fields = parse_file(geodata_file.geodata_file)
+        extracted_fields = parse_file(geodata_file.geodata_file.path)
         differences = extracted_fields.compare(file_fields_recived)
         if len(differences) > 0:
             return Response(
@@ -160,9 +159,8 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             )
 
         # Get build the xml file
-        result_tree, fields_not_in_template, fields_not_registered = fill_xml_template(
-            et.parse(str(product_type.xml_template)),
-            [kv for kv in field_value_list.items()],
+        result_tree, fields_not_registered = fill_xml_template(
+            product_type, [kv for kv in field_value_list.items()]
         )
 
         with NamedTemporaryFile(suffix=".xml", delete=False) as temp_file:

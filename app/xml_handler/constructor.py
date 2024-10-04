@@ -2,7 +2,7 @@
 
 from lxml import etree as et
 from re import findall
-from core.models import MetadataFormField
+from core.models.producttype import ProductType
 
 
 def old_path_to_search_string(old_path: str) -> str:
@@ -10,19 +10,21 @@ def old_path_to_search_string(old_path: str) -> str:
 
 
 def fill_xml_template(
-    template_tree: et._ElementTree, field_value_map: list[tuple[str, str]]
-) -> tuple[et._ElementTree, list[str], list[str]]:
-    fields_not_in_template, fields_not_registered = [], []
+    product_type: ProductType, field_value_map: list[tuple[str, str]]
+) -> tuple[et._ElementTree, list[str]]:
+    template_tree = et.parse(str(product_type.xml_template))
+    label_path_map = {
+        field.iso_xml_path: field.old_path
+        for field in product_type.metadata_fields.all()
+    }
+    fields_not_registered = []
     for field_name, value in field_value_map:
-        try:
-            field = MetadataFormField.objects.get(name=field_name)
-        except MetadataFormField.DoesNotExist:
+        old_path = label_path_map.get(field_name, None)
+        if old_path is None:
             fields_not_registered.append(field_name)
         else:
-            element = template_tree.find(old_path_to_search_string(field.old_path))
-            if element is None:
-                fields_not_in_template.append(field_name)
-            else:
-                element.text = value
+            element = template_tree.find(old_path_to_search_string(old_path))
+            if element is not None:
+                element.text = str(value)
 
-    return template_tree, fields_not_in_template, fields_not_registered
+    return template_tree, fields_not_registered
