@@ -27,6 +27,10 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         self.obj.refresh_from_db()
         self.product_type_id = 1
 
+    def tearDown(self):
+        self.obj.delete()
+        return super().tearDown()
+
     def test_missing_fields(self):
         """
         Assert that an error and a list of missing fields is recived after sending an empty fields list.
