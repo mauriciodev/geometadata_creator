@@ -19,18 +19,18 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
 
         self.user = get_user_model().objects.create(username="root")
         self.client.force_login(self.user)
+        with open("core/tests/test_data/recorte.tif", "rb") as fp:
+            self.obj = GeospatialResource.objects.create(geodata_file=File(fp))
+        self.product_type_id = 1
 
-    def test_missing_fiels(self):
+    def test_missing_fields(self):
         """
         Assert that an error and a list of missing fields is recived after sending an empty fields list.
         """
-        with open("core/tests/test_data/recorte.tif", "rb") as fp:
-            obj = GeospatialResource.objects.create(geodata_file=File(fp))
-        url = f"/geoproduct/{obj.id}/build_metadata/"
-        payload = {"metadata_fields": [], "product_type": 1}
+        url = f"/geoproduct/{self.obj.id}/build_metadata/"
+        payload = {"metadata_fields": [], "product_type": self.product_type_id}
         response = self.client.post(url, payload, format="json")
         response_data = response.data  # type: ignore
-        obj.refresh_from_db()
 
         self.assertEqual(
             response.status_code, status.HTTP_400_BAD_REQUEST, msg=response.json()
