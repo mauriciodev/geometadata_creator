@@ -150,7 +150,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         # Check if there is a miss match between the fields provided and the ones extracted from the file
         extracted_fields = parse_file(geodata_file.geodata_file)
         differences = extracted_fields.compare(file_fields_recived)
-        if len(missing_fields) > 0:
+        if len(differences) > 0:
             return Response(
                 {
                     "error": ErrorMessages.missmatched_file_fields.value,
