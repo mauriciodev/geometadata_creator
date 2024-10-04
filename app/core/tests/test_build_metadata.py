@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
+from file_handler.schemas import FileExtractedFields
 from core.models.producttype import ProductType
 from core.models import GeospatialResource
 from django.contrib.auth import get_user_model
@@ -41,7 +42,7 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
 
     def test_validation_for_field_values(self):
         """
-        Assert that sending values with the wrong format will cause error
+        Assert that sending values that are the wrong type (str) will be flagged
         """
         url = f"/geoproduct/{self.obj.id}/build_metadata/"
         payload = {
@@ -59,6 +60,47 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         self.assertEqual(
             response.status_code, status.HTTP_400_BAD_REQUEST, msg=response.json()
         )
+        self.assertEqual(response_data["error"], EM.missmatched_file_fields.value)
+        self.assertIn(EM.missmatched_file_fields.name, response_data)
+
+    def test_incorrect_file_values(self):
+        """
+        Assert that sending values that are incorrect if matched against the file will be flagged.
+        """
+        url = f"/geoproduct/{self.obj.id}/build_metadata/"
+        wrong_fields = FileExtractedFields(
+            north_bound_lat=1.0,
+            west_bound_lon=1.0,
+            east_bound_lon=1.0,
+            south_bound_lat=1.0,
+            epsg_code=2343,
+            driver="Not IT",
+            scale_denominator1=1,
+            scale_denominator2=1,
+            inom="not_it",
+            mi="not_it",
+            data_representation_type="Vetorial",
+        ).dump_fields()
+        middle_dict = (
+            field.iso_xml_path
+            for field in ProductType.objects.get(
+                pk=self.product_type_id
+            ).metadata_fields.all()
+        )
+        payload = {
+            "metadata_fields": [
+                {"label": label, "value": wrong_fields.get(label, "test")}
+                for label in middle_dict
+            ],
+            "product_type": self.product_type_id,
+        }
+        response = self.client.post(url, payload, format="json")
+        response_data = response.data  # type: ignore
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, msg=response.json()
+        )
+        self.assertIn("error", response_data, msg=response_data)
         self.assertEqual(response_data["error"], EM.missmatched_file_fields.value)
         self.assertIn(EM.missmatched_file_fields.name, response_data)
 
