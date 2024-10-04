@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
+from core.models.producttype import ProductType
 from core.models import GeospatialResource
 from django.contrib.auth import get_user_model
 from django.core.files.base import File
@@ -37,6 +38,29 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         )
         self.assertEqual(response_data["error"], EM.missing_fields.value)
         self.assertIn(EM.missing_fields.name, response_data)
+
+    def test_validation_for_field_values(self):
+        """
+        Assert that sending values with the wrong format will cause error
+        """
+        url = f"/geoproduct/{self.obj.id}/build_metadata/"
+        payload = {
+            "metadata_fields": [
+                {"label": field.iso_xml_path, "value": "test"}
+                for field in ProductType.objects.get(
+                    pk=self.product_type_id
+                ).metadata_fields.all()
+            ],
+            "product_type": self.product_type_id,
+        }
+        response = self.client.post(url, payload, format="json")
+        response_data = response.data  # type: ignore
+
+        self.assertEqual(
+            response.status_code, status.HTTP_400_BAD_REQUEST, msg=response.json()
+        )
+        self.assertEqual(response_data["error"], EM.missmatched_file_fields.value)
+        self.assertIn(EM.missmatched_file_fields.name, response_data)
 
     def test_the_creates_the_file(self):
         """

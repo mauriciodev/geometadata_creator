@@ -107,7 +107,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         field_value_list = {field["label"]: field["value"] for field in serializer.validated_data["metadata_fields"]}  # type: ignore
-        recived_fields = set(item[0] for item in field_value_list)
+        recived_fields = set(item for item in field_value_list.keys())
 
         # Get the product type
         pt_id = int(serializer.validated_data["product_type"])  # type: ignore
