@@ -32,6 +32,17 @@ from xml_handler.validator import (
 )
 from file_handler.schemas import FileExtractedFields
 from core.fields import FileGeoDataFields as FEF
+from enum import StrEnum
+
+
+class ErrorMessages(StrEnum):
+    missing_fields = (
+        "There are  fields required for the product_type selected that are missing ."
+    )
+    missmatched_file_fields = (
+        "There where errors with fields when comparing the values found in file."
+    )
+    pt_not_supported = "Product type not suported"
 
 
 class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
@@ -103,7 +114,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         product_type = ProductType.objects.get(pk=pt_id)
         if product_type is None:
             return Response(
-                {"error": "Product type not suported"},
+                {"error": ErrorMessages.pt_not_supported},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -116,8 +127,8 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         if len(missing_fields) > 0:
             return Response(
                 {
-                    "error": "There are missing fields for the product_type that was selected.",
-                    "missing_fields": missing_fields,
+                    "error": ErrorMessages.missing_fields.value,
+                    ErrorMessages.missing_fields.name: missing_fields,
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -130,8 +141,8 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         except ValidationError as e:
             return Response(
                 {
-                    "error": "There where missmatched fields when comparing the values recived with the ones extracted from the file.",
-                    "mismatched_fields": e.errors(),
+                    "error": ErrorMessages.missmatched_file_fields.value,
+                    ErrorMessages.missmatched_file_fields.name: e.errors(),
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
@@ -142,8 +153,8 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         if len(missing_fields) > 0:
             return Response(
                 {
-                    "error": "The fields sent where different from the file",
-                    "different_fields": differences,
+                    "error": ErrorMessages.missmatched_file_fields.value,
+                    ErrorMessages.missmatched_file_fields.name: differences,
                 },
                 status=status.HTTP_400_BAD_REQUEST,
             )
