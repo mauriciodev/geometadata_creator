@@ -58,7 +58,7 @@ class FileExtractedFields(BaseModel):
         )
 
     def dump_fields(self):
-        return {FEF[name].value: value for name, value in self}
+        return {FEF[name].value: value for name, value in self if value is not None}
 
     @classmethod
     def _compare(cls, v1, v2) -> bool:
