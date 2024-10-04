@@ -5,7 +5,7 @@ from rasterio.warp import transform_bounds
 from file_handler.schemas import FileExtractedFields
 
 
-def parse_file(geodata_file: str):
+def parse_file(geodata_file: str) -> FileExtractedFields:
     suffix = Path(geodata_file).suffix
     match suffix:
         case ".tiff" | ".tif":

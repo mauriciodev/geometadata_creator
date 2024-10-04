@@ -50,3 +50,8 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         """
         self.assertIn("file_fields", self.response_data)
         # TODO: escrever mais um teste para garantir que a resposta é uma lista de product_types
+
+    def test_build_metadata_from_fields(self):
+        """
+        Tests that the endpoint for building the metadata from fields is live.
+        """

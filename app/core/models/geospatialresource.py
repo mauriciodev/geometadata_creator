@@ -6,6 +6,10 @@ from owslib import csw, iso
 
 
 class GeospatialResource(models.Model):
+    """
+    Stores the geoproduct(geodata_file), the metadata (metadata_file) and the pdf
+    """
+
     id = models.BigAutoField(primary_key=True)
     metadata_id = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200, blank=True)
