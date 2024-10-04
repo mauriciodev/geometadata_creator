@@ -162,6 +162,7 @@ cython_debug/
 /gmd_creator_app/templates/BDGEx*
 /repository/*
 /media/*
+/static/media/
 
 # Stop tracking the migrations
 /app/core/migrations/
