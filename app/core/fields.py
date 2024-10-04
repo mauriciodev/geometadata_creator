@@ -34,6 +34,6 @@ class FileGeoDataFields(StrEnum):
     scale_denominator2 = (
         "MD_DataIdentification-spatialResolution-equivalentScale-denominator2"
     )
-    inom = "MD_Identification-citation-alternateTitle"
-    mi = "MD_Identification-citation-alternateTitle"
+    inom = "MD_Identification-citation-alternateTitle2"
+    mi = "MD_Identification-citation-alternateTitle3"
     spatial_resolution = "MD_DataIdentification-spatialResolution-distance"
