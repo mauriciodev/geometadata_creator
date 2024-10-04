@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
+from file_handler.extractor import parse_file
 from file_handler.schemas import FileExtractedFields
 from core.models.producttype import ProductType
 from core.models import GeospatialResource
@@ -23,6 +24,7 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         self.client.force_login(self.user)
         with open("core/tests/test_data/recorte.tif", "rb") as fp:
             self.obj = GeospatialResource.objects.create(geodata_file=File(fp))
+        self.obj.refresh_from_db()
         self.product_type_id = 1
 
     def test_missing_fields(self):
@@ -108,14 +110,26 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         """
         Ensure we can upload a file.
         """
-        with open("core/tests/test_data/recorte.tif", "rb") as fp:
-            obj = GeospatialResource.objects.create(geodata_file=File(fp))
-        url = f"/geoproduct/{obj.id}/build_metadata/"
-        payload = {"metadata_fields": [], "product_type": 1}
+        url = f"/geoproduct/{self.obj.id}/build_metadata/"
+
+        wrong_fields = parse_file(self.obj.geodata_file.path).dump_fields()
+        middle_dict = (
+            field.iso_xml_path
+            for field in ProductType.objects.get(
+                pk=self.product_type_id
+            ).metadata_fields.all()
+        )
+        payload = {
+            "metadata_fields": [
+                {"label": label, "value": wrong_fields.get(label, "123")}
+                for label in middle_dict
+            ],
+            "product_type": self.product_type_id,
+        }
         response = self.client.post(url, payload, format="json")
-        obj.refresh_from_db()
+        self.obj.refresh_from_db()
 
         self.assertEqual(
             response.status_code, status.HTTP_201_CREATED, msg=response.json()
         )
-        self.assertTrue(len(obj.metadata_file) > 0)
+        self.assertTrue(len(self.obj.metadata_file) > 0)
