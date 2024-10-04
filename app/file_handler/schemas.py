@@ -5,7 +5,7 @@ from pydantic import (
     model_validator,
     Field,
 )
-from core.fields import FileExtractedFields as FEF
+from core.fields import FileGeoDataFields as FEF
 
 
 class FileExtractedFields(BaseModel):

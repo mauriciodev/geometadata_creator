@@ -30,6 +30,7 @@ from xml_handler.validator import (
     find_product_type_from_xml,
     validate_fields_based_on_product_type,
 )
+from core.fields import FileGeoDataFields as FEF
 
 
 class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):

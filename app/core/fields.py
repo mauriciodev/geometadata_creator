@@ -12,7 +12,7 @@ class CadastroGeralFields(StrEnum):
     vertical_datum = "MD_DataIdentification-extent-verticalExtent-verticalDatum"
 
 
-class FileExtractedFields(StrEnum):
+class FileGeoDataFields(StrEnum):
     north_bound_lat = (
         "MD_DataIdentification-extent-geographicElement1-northBoundLatitude"
     )
