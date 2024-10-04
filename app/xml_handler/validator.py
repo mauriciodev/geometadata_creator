@@ -1,81 +1,64 @@
-""" File containing the function for validating an geo metadata xml file """
-
 from pathlib import Path
-from owslib.iso import MD_Metadata
-from xml_handler.constructor import to_seach_string
-from core.models import ProductType, MetadataFormField
-from lxml.etree import _ElementTree
+from core.fields import UniversalFields as UF
 from lxml import etree as et
-from enum import Enum
+from xml_handler.constructor import old_path_to_search_string
+from core.models import ProductType
+from core.fields import UniversalFields as UF
 
 
-class MissingFieldsScenarios(Enum):
-    case_1 = "Path was found."
-    case_2 = "Field was not found."
-    case_3 = "Field search string was malformed."
-    case_4 = "Product type not registered."
-    case_5 = "File doesn't have the product type field."
-
-
-def get_product_type(xml_tree: _ElementTree) -> ProductType | MissingFieldsScenarios:
-    product_type_field = MetadataFormField.objects.get(
-        iso_xml_path="MD_Identification-citation-series-name"
-    )
-    try:
-        element = xml_tree.find(to_seach_string(product_type_field.old_path))
-    except:
-        return MissingFieldsScenarios.case_3
-    else:
-        if element is None:
-            return MissingFieldsScenarios.case_3
-
-        product_type = ProductType.objects.get(name=element.text)
-        if product_type is None:
-            return product_type
-        else:
-            return MissingFieldsScenarios.case_4
-
-
-def collect_fields(
-    xml_tree: _ElementTree, product_type: ProductType
-) -> tuple[dict, dict]:
-
-    collected_fields, missing_fields = {}, {}
-    for field in product_type.metadata_fields.all():
-        try:
-            element = xml_tree.find(to_seach_string(field.old_path))
-        except Exception as _:
-            missing_fields[field.iso_xml_path] = MissingFieldsScenarios.case_3
-        else:
-            if element is None:
-                missing_fields[field.iso_xml_path] = MissingFieldsScenarios.case_2
-            else:
-                collected_fields[field.iso_xml_path] = element.text
-
-    return collected_fields, missing_fields
-
-
-def basic_validator(xml_path: str | Path) -> bool | Exception:
-    """Verifica se o arquivo existe, se ele é um xml válido e se pode ser aberto pela owslib"""
+def validate_file_integrity(xml_path: str | Path) -> et._ElementTree:
+    """
+    Vefify if the file exists and if it is a valid xml file.
+    If it is, returns the etree object.
+    """
 
     # Verifica se o arquivo existe e se possui a extensão xml
     xml_path = Path(xml_path) if isinstance(xml_path, str) else xml_path
     if not xml_path.exists():
-        return Exception("Arquivo não encontrado")
-    elif xml_path.suffix != ".xml":
-        return Exception("Arquivo não é xml")
+        raise FileNotFoundError("File was not found.")
 
+    et.parse(xml_path)
     # Verifica se o arquivo possui uma estrutura xml válida
-    try:
-        with open(xml_path) as file:
-            xml = et.parse(file)
-    except Exception as _:
-        return Exception("Problema com a estrutura do xml.")
 
-    # Verifica se o arquivo pode ser lido pela owslib
     try:
-        metadata = MD_Metadata(xml)
-    except Exception as _:
-        return Exception("O arquivo não pode ser lido pela owslib")
+        xml_tree = et.parse(xml_path)
+    except:
+        raise Exception("Problema com a estrutura do xml.")
 
-    return True
+    return xml_tree
+
+
+def find_product_type_from_xml(xml_tree: et._ElementTree) -> ProductType:
+    # Find the product type for the file field
+    product_type_element = xml_tree.find(
+        old_path_to_search_string(UF.product_type.value)
+    )
+    if product_type_element is None:
+        raise ValueError("Could not get the product type from the metadata.")
+    product_type_name = product_type_element.text
+
+    # Find the product type
+    product_type = ProductType.objects.filter(name=product_type_name).first()
+    if product_type is None:
+        raise ValueError("Product type not suported.")
+
+    return product_type
+
+
+def validate_fields_based_on_product_type(
+    xml_tree: et._ElementTree, product_type: ProductType
+) -> tuple[dict, set]:
+    """
+    - Collect the fields from the product type;
+    - Collect the value of the fields that where found;
+    - Maps the fields that where missing;
+    """
+    collected_fields, missing_fields = {}, set()
+    for field in product_type.metadata_fields.all():
+        element = xml_tree.find(old_path_to_search_string(field.old_path))
+        if element is None:
+            missing_fields.add(field.iso_xml_path)
+        else:
+            collected_fields[field.iso_xml_path] = element.text
+
+    return collected_fields, missing_fields

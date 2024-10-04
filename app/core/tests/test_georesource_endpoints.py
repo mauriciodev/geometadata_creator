@@ -19,14 +19,16 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         """
         Ensure we can upload a file.
         """
-        with open("core/tests/test_data/recorte.tif", "rb") as fp:
-            payload = {"geodata_file": fp}
-            response = self.client.post("/geoproduct/", payload, format="multipart")
 
-        response_data: dict = response.data  # type: ignore
-        self.response_data.update(response_data)
+        with open("core/tests/test_data/recorte.tif", "rb") as fp:
+            response = self.client.post(
+                "/geoproduct/", {"geodata_file": fp}, format="multipart"
+            )
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(GeospatialResource.objects.count(), 1)
+        response_data: dict = response.data  # type: ignore
+        self.response_data.update(response_data)
 
     def test_upload_response_contains_id(self):
         """
@@ -48,3 +50,8 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         """
         self.assertIn("file_fields", self.response_data)
         # TODO: escrever mais um teste para garantir que a resposta é uma lista de product_types
+
+    def test_build_metadata_from_fields(self):
+        """
+        Tests that the endpoint for building the metadata from fields is live.
+        """

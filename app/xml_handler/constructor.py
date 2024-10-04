@@ -1,24 +1,28 @@
 """ File containing the code for constructing the an iso xml file based on its fields """
 
-from lxml import etree
-from re import split
+from lxml import etree as et
+from re import findall
+from core.models import MetadataFormField
 
 
-def to_seach_string(old_path: str) -> str:
-    return "./{*}" + "/{*}".join(
-        x
-        for x in split(r"/\w+:", old_path.replace(" ", "_"))
-        if x not in {"", "MD_Metadata"}
-    )
+def old_path_to_search_string(old_path: str) -> str:
+    return "./" + "/".join("{*}" + t for _, t in findall(r"/(\w+):(\w+)", old_path)[1:])
 
 
-def construct_xml(template_path: str, old_paths: list[str], values: list[str]) -> bytes:
-    tree = etree.parse(template_path)
-    for old_path, value in zip(old_paths, values):
-        element = tree.find(to_seach_string(old_path))
-        if element is None:
-            pass
+def fill_xml_template(
+    template_tree: et._ElementTree, field_value_map: list[tuple[str, str]]
+) -> tuple[et._ElementTree, list[str], list[str]]:
+    fields_not_in_template, fields_not_registered = [], []
+    for field_name, value in field_value_map:
+        try:
+            field = MetadataFormField.objects.get(name=field_name)
+        except MetadataFormField.DoesNotExist:
+            fields_not_registered.append(field_name)
         else:
-            element.text = value
+            element = template_tree.find(old_path_to_search_string(field.old_path))
+            if element is None:
+                fields_not_in_template.append(field_name)
+            else:
+                element.text = value
 
-    return etree.tostring(tree)
+    return template_tree, fields_not_in_template, fields_not_registered

@@ -8,6 +8,7 @@ python app/manage.py makemigrations
 python app/manage.py makemigrations core
 python app/manage.py migrate
 python app/manage.py createsuperuser
-python app/manage.py loaddata app/core/fixtures/form_fields.json app/core/fixtures/index_map.json
+
+docker compose run --rm gmd_creator sh -c "python3 manage.py loaddata core/fixtures/form_fields.json core/fixtures/index_map.json"
 
 
