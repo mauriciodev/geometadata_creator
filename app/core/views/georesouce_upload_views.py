@@ -1,3 +1,4 @@
+from django.core.files.base import ContentFile
 from django.http import HttpRequest
 
 from rest_framework import status
@@ -8,19 +9,27 @@ from rest_framework.parsers import (
 )
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from django.core.files import File
 
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
-
+from xml_handler.constructor import fill_xml_template
 from file_handler.extractor import parse_file
 from core.serializers import (
     GeoresourceUploadSerializer,
-    XMLSerializer,
+    SendXMLSerializer,
     BuildMetadataSerializer,
 )
 from core.models import ProductType, GeospatialResource
-from core.fields import UniversalFields as UF
+from tempfile import NamedTemporaryFile
+from lxml import etree as et
+from file_handler.extractor import parse_file
+from xml_handler.validator import (
+    validate_file_integrity,
+    find_product_type_from_xml,
+    validate_fields_based_on_product_type,
+)
 
 
 class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
@@ -74,53 +83,84 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             - Validate the contact information agaist the logged databases;
             - Create the XML metadata file;
         """
+        # Find the geodata_file that is beeing patched
+        geodata_file = GeospatialResource.objects.get(pk=pk)
+        if geodata_file is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
         # Validate the sent information is in the format and that the labels exists
         serializer = BuildMetadataSerializer(data=getattr(request, "data"))
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        print(serializer.validated_data["metadata_fields"])  # type: ignore
-        recived_fields = {field["label"]: field["value"] for field in serializer.validated_data["metadata_fields"]}  # type: ignore
+        recived_fields = [(field["label"], field["value"]) for field in serializer.validated_data["metadata_fields"]]  # type: ignore
 
-        # Get the field that contains the type of product
-        product_type = ProductType.objects.get(
-            label=next(
-                iso_path
-                for iso_path in recived_fields
-                if iso_path == UF.product_type.value
+        # Get the product type
+        pt_id = int(serializer.validated_data["product_type"])  # type: ignore
+        product_type = ProductType.objects.get(pk=pt_id)
+        if product_type is None:
+            return Response(
+                {"error": "Product type not suported"},
+                status=status.HTTP_400_BAD_REQUEST,
             )
-        )
-        correct_fields = {pt.label for pt in product_type.metadata_fields.all()}
 
-        # Check if the fields sent are correct
-        error_fields = {}
-        error_fields.update(
-            {
-                label: "Fields missing but was expected."
-                for label in correct_fields
-                if label not in recived_fields.keys()
-            }
+        # Get build the xml file
+        result_tree, fields_not_in_template, fields_not_registered = fill_xml_template(
+            et.parse(str(product_type.xml_template)), recived_fields
         )
-        error_fields.update(
-            {
-                label: "Field does not belong to this product type."
-                for label in recived_fields.keys()
-                if label not in correct_fields
-            }
-        )
-        if len(error_fields) > 0:
-            return Response(serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
 
-        # Check for the file related fields
-
-        # Check for the cadastro geral fields
+        with NamedTemporaryFile(suffix=".xml", delete=False) as temp_file:
+            result_tree.write(
+                temp_file, pretty_print=True, xml_declaration=True, encoding="UTF-8"
+            )
+            temp_file.seek(0)
+            geodata_file.metadata_file.save(
+                "temp_name.xml", File(temp_file)
+            )  # TODO: get a real file name
 
         return Response({}, status=status.HTTP_201_CREATED)
 
     @action(
         detail=True,
         methods=["POST"],
-        serializer_class=XMLSerializer,
+        serializer_class=SendXMLSerializer,
         parser_classes=(MultiPartParser, FormParser),
     )
-    def send_xml_metadata(self, request: HttpRequest, id=None):
-        return Response({}, status=status.HTTP_201_CREATED)
+    def send_xml_metadata(self, request: HttpRequest, pk=None):
+        """Endpoint para construção e validação do XML a partir dos dados do arquivo"""
+
+        # Find the geodata_file that is beeing patched
+        geodata_file = GeospatialResource.objects.get(pk=pk)
+        if geodata_file is None:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        # Check if the request is in the correct format
+        serializer = SendXMLSerializer(
+            geodata_file, data=getattr(request, "data"), partial=True
+        )
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        xml_file = serializer.validated_data["metadata_file"]  # type: ignore
+
+        # Check the file integrity and save the file
+        try:
+            xml_tree = validate_file_integrity(xml_file)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Finds the product_type based on the xml field
+        try:
+            product_type = find_product_type_from_xml(xml_tree)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Get the fields from the file
+        collected_fields, missing_fields = validate_fields_based_on_product_type(
+            xml_tree, product_type
+        )
+
+        # TODO: Adicionar validação com dados do arquivo
+
+        return Response(
+            {"missing_fields": missing_fields},
+            status=status.HTTP_201_CREATED,
+        )

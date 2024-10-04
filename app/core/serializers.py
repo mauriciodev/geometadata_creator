@@ -40,7 +40,12 @@ class MetadataFieldSerializer(serializers.ModelSerializer):
 
 class BuildMetadataSerializer(serializers.Serializer):
     metadata_fields = MetadataFieldSerializer(many=True)
+    product_type = serializers.IntegerField()
 
 
-class XMLSerializer(serializers.Serializer):
-    xml_metadata_file = serializers.FileField()
+class SendXMLSerializer(serializers.ModelSerializer):
+    metadata_file = serializers.FileField()
+
+    class Meta:
+        model = GeospatialResource
+        fields = ("metadata_file",)

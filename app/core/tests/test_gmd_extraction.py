@@ -1,14 +1,15 @@
 from pathlib import Path
 from django.test import TestCase
 from numpy import float64, zeros
-from file_handler.extractor import RasterExtractableInfo, parse_file
+from file_handler.extractor import parse_file
+from file_handler.schemas import FileExtractedFields
 import rasterio
 from os import remove
 
 RASTEREXAMPLE = Path("core/tests/test_data/example.tif")
 
 
-def create_example() -> RasterExtractableInfo:
+def create_example() -> FileExtractedFields:
     # Create the example
 
     driver = "GTiff"
@@ -31,17 +32,18 @@ def create_example() -> RasterExtractableInfo:
         dst.write(Z, 1)
 
     # Return the correct value
-    return RasterExtractableInfo(
+    return FileExtractedFields(
         north_bound_lat=nb,
         south_bound_lat=sb,
         east_bound_lon=eb,
         west_bound_lon=wb,
         driver=driver,
         epsg_code=4326,
-        scale_denominator1=100000,
-        scale_denominator2=100000,
+        scale_denominator1=1000,
+        scale_denominator2=1000,
         inom="",
         mi="",
+        data_representation_type="Matricial",
     )
 
 
@@ -55,7 +57,7 @@ class GMDExtractorTests(TestCase):
         Ensure we get a dict from using the extract raster method
         """
         response = parse_file("core/tests/test_data/example.tif")
-        self.assertIsInstance(response, RasterExtractableInfo)
+        self.assertIsInstance(response, FileExtractedFields)
 
     def test_value_acuracy(self):
         """
