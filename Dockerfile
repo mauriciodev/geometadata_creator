@@ -19,8 +19,14 @@ EXPOSE 8000
 COPY pyproject.toml poetry.lock ./
 RUN touch README.md
 
-RUN apk add --update --no-cache gdal-dev gcc g++ && \
-    poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
+RUN apk add --update --no-cache gdal-dev gcc g++ postgresql-client jpeg-dev && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+      build-base postgresql-dev musl-dev zlib zlib-dev
+
+RUN poetry install --without dev --no-root && rm -rf $POETRY_CACHE_DIR
+
+RUN rm -rf /tmp && \
+    apk del .tmp-build-deps
 
 
 ENV PATH="/py/bin:$PATH"

@@ -14,6 +14,14 @@ services:
       sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
 
+    environment:
+      - DB_HOST=db
+      - DB_NAME=pycsw
+      - DB_USER=postgres
+      - DB_PASS=mypass
+    depends_on:
+      - db
+
   # nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
   #   container_name: nginx
   #   ports:
@@ -35,27 +43,25 @@ services:
 
   db:
     container_name: db
-    image: postgis/postgis:12-3.0-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mypass
-      POSTGRES_DB: pycsw
-      PGDATA: /var/lib/postgresql/data/pgdata
-    volumes:
-      - db-data:/var/lib/postgresql/data/pgdata
+    image: postgres:13-alpine
     ports:
       - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=pycsw
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mypass
 
   pycsw:
     container_name: pycsw
     image: geopython/pycsw
     environment:
-        PYCSW_SERVER_URL: http://localhost:8088
+      PYCSW_SERVER_URL: http://localhost:8088
     ports:
       - 8088:8000
     volumes:
       - ./configs/pycsw.yml:/etc/pycsw/pycsw.yml
-
 
 volumes:
   db-data:
