@@ -35,6 +35,13 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         self.obj.delete()
         return super().tearDown()
 
+    def test_file_not_found_returns_404(self):
+        """Assert that if the file is not found it will return a 404 error"""
+        url = f"/geoproduct/{self.obj.id + 1}/build_metadata/"
+        payload = {"metadata_fields": [], "product_type": self.product_type_id}
+        response = self.client.post(url, payload, format="json")
+        self.assertEqual(status.HTTP_404_NOT_FOUND, response.status_code)
+
     def test_missing_fields(self):
         """
         Assert that an error and a list of missing fields is recived after sending an empty fields list.
