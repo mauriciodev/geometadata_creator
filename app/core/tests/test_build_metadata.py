@@ -5,8 +5,9 @@ from file_handler.schemas import FileExtractedFields
 from core.models.producttype import ProductType
 from core.models import GeospatialResource
 from django.contrib.auth import get_user_model
-from django.core.files.base import File
+from django.core.files.base import ContentFile
 from core.views.georesouce_upload_views import ErrorMessages as EM
+from file_handler.utils import get_example_raster
 
 
 class GeospatialResourceUploadEndpointTests(APITestCase):
@@ -22,8 +23,11 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
 
         self.user = get_user_model().objects.create(username="root")
         self.client.force_login(self.user)
-        with open("core/tests/test_data/recorte.tif", "rb") as fp:
-            self.obj = GeospatialResource.objects.create(geodata_file=File(fp))
+        binary_data, fields = get_example_raster()
+        self.obj = GeospatialResource.objects.create(
+            geodata_file=ContentFile(binary_data, "name.tif")
+        )
+        self.file_fields = fields
         self.obj.refresh_from_db()
         self.product_type_id = 1
 
@@ -95,7 +99,7 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         )
         payload = {
             "metadata_fields": [
-                {"label": label, "value": wrong_fields.get(label, "test")}
+                {"label": label, "value": wrong_fields.get(label, "123")}
                 for label in middle_dict
             ],
             "product_type": self.product_type_id,
