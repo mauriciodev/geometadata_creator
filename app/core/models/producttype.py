@@ -1,8 +1,6 @@
 from django.db import models
-from owslib.iso import MD_Metadata
 from owslib.etree import etree
 from owslib.namespaces import Namespaces
-from owslib import util
 
 
 class MetadataFormField(models.Model):
@@ -18,7 +16,7 @@ class MetadataFormField(models.Model):
     field_type = models.CharField(max_length=100, choices=field_types)
     is_static = models.BooleanField(default=False)
     possible_values = models.TextField()
-    default_value = models.CharField(max_length=100, blank=True)
+    default_value = models.TextField()
     comments = models.TextField(blank=True)
     old_path = models.TextField(blank=True)
 
