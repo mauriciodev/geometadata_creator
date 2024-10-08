@@ -21,14 +21,14 @@ from core.serializers import (
     BuildMetadataSerializer,
 )
 from core.models import ProductType, GeospatialResource
-from tempfile import NamedTemporaryFile
-from lxml import etree as et
+from django.core.files.temp import NamedTemporaryFile
 from file_handler.extractor import parse_file
 from xml_handler.validator import (
     validate_file_integrity,
     find_product_type_from_xml,
     validate_fields_based_on_product_type,
 )
+
 from file_handler.schemas import FileExtractedFields
 from core.fields import FileGeoDataFields as FEF
 from enum import StrEnum
@@ -56,17 +56,15 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        geodata_file = serializer.validated_data[  # type: ignore
-            "geodata_file"
-        ].temporary_file_path()
+        geodata_file = serializer.validated_data["geodata_file"]  # type: ignore
 
         # Validate the georesource file
         try:
-            file_fields = parse_file(geodata_file).dump_fields()
+            file_fields = parse_file(geodata_file.temporary_file_path()).dump_fields()
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
-        georesource = GeospatialResource.objects.create(geodata_file=geodata_file)
+        georesource = GeospatialResource.objects.create(geodata_file=File(geodata_file))
 
         # Pegar os tipos de produtos
         product_types = [
@@ -163,7 +161,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             product_type, [kv for kv in field_value_list.items()]
         )
 
-        with NamedTemporaryFile(suffix=".xml", delete=False) as temp_file:
+        with NamedTemporaryFile(suffix=".xml") as temp_file:
             result_tree.write(
                 temp_file, pretty_print=True, xml_declaration=True, encoding="UTF-8"
             )
