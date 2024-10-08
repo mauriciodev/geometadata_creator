@@ -94,8 +94,9 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             - Create the XML metadata file;
         """
         # Find the geodata_file that is beeing patched
-        geodata_file = GeospatialResource.objects.get(pk=pk)
-        if geodata_file is None:
+        try:
+            geodata_file = GeospatialResource.objects.get(pk=pk)
+        except GeospatialResource.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         # Validate the sent information is in the format and that the labels exists
@@ -185,8 +186,9 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         """Endpoint para construção e validação do XML a partir dos dados do arquivo"""
 
         # Find the geodata_file that is beeing patched
-        geodata_file = GeospatialResource.objects.get(pk=pk)
-        if geodata_file is None:
+        try:
+            geodata_file = GeospatialResource.objects.get(pk=pk)
+        except GeospatialResource.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         # Check if the request is in the correct format
