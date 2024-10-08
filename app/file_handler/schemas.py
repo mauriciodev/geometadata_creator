@@ -19,10 +19,14 @@ class FileExtractedFields(BaseModel):
     )
     epsg_code: int = Field(alias=FEF.epsg_code.name)
     driver: str = Field(alias=FEF.driver.name)
-    scale_denominator1: int = Field(alias=FEF.scale_denominator1.name)
-    scale_denominator2: int = Field(alias=FEF.scale_denominator2.name)
-    inom: str = Field(alias=FEF.inom.name)
-    mi: str = Field(alias=FEF.mi.name)
+    scale_denominator1: int | None = Field(
+        alias=FEF.scale_denominator1.name, default=None
+    )
+    scale_denominator2: int | None = Field(
+        alias=FEF.scale_denominator2.name, default=None
+    )
+    inom: str | None = Field(alias=FEF.inom.name, default=None)
+    mi: str | None = Field(alias=FEF.mi.name, default=None)
     spatial_resolution: int | None = Field(
         alias=FEF.spatial_resolution.name, default=None
     )
