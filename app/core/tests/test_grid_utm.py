@@ -1,6 +1,5 @@
 import os
 
-from django.urls import reverse
 from django.test import TestCase
 
 from core.models import IndexMap

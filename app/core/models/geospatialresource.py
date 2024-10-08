@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from simple_history.models import HistoricalRecords
 from django.conf import settings
-from owslib import csw, iso
+from owslib import csw
 
 
 class GeospatialResource(models.Model):
@@ -30,15 +30,16 @@ class GeospatialResource(models.Model):
         cswClient = csw.CatalogueServiceWeb(csw_url)
 
         fname = str(self.metadata_file)
-        #= '/home/mauricio/Desktop/Doutorado_psq/PFC_2024/geometadata_creator/examples/PORTO ALEGRE - valido.xml'
         f = open(fname)
         try:
-            cswClient.transaction(ttype='insert', typename='gmd:MD_Metadata', record=f.read().encode('utf-8'))
+            cswClient.transaction(
+                ttype="insert",
+                typename="gmd:MD_Metadata",
+                record=f.read().encode("utf-8"),
+            )
             return "Done."
         except:
             return "Error saving metadata."
-
-
 
     def csw_get(self, metadataid, csw_url=""):
         if csw_url == "":

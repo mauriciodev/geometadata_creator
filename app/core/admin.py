@@ -1,8 +1,9 @@
-import requests, os
+import requests
+import os
 
 from django.contrib import admin, messages
 from django.contrib.auth import get_permission_codename
-from django.core.files.base import ContentFile, File
+from django.core.files.base import ContentFile
 from simple_history.admin import SimpleHistoryAdmin
 from admin_extra_buttons.api import (
     ExtraButtonsMixin,
@@ -13,7 +14,7 @@ from django.conf import settings
 
 from owslib import csw
 
-from .models import GeospatialResource, ProductType, MetadataFormField
+from core.models import GeospatialResource, ProductType, MetadataFormField
 
 
 class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
@@ -163,4 +164,3 @@ admin.site.register(GeospatialResource, geospatial_resource_Admin)
 
 admin.site.register(ProductType)
 admin.site.register(MetadataFormField)
-
