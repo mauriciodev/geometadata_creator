@@ -31,6 +31,7 @@ from xml_handler.validator import (
 
 from file_handler.schemas import FileExtractedFields
 from core.fields import FileGeoDataFields as FEF
+from core.utils import compare_dict_values
 from enum import StrEnum
 
 
@@ -104,8 +105,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        field_value_list = {field["iso_xml_path"]: field["value"] for field in serializer.validated_data["metadata_fields"]}  # type: ignore
-        recived_fields = set(item for item in field_value_list.keys())
+        recived_fields_map = {field["iso_xml_path"]: field["value"] for field in serializer.validated_data["metadata_fields"]}  # type: ignore
 
         # Get the product type
         pt_id = int(serializer.validated_data["product_type"])  # type: ignore
@@ -121,7 +121,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         )
 
         # Check if there are any required fields that are missing
-        missing_fields = required_fields.difference(recived_fields)
+        missing_fields = required_fields.difference(recived_fields_map.keys())
         if len(missing_fields) > 0:
             return Response(
                 {
@@ -134,7 +134,11 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         # Try to parse the file extractable fields sent
         try:
             file_fields_recived = FileExtractedFields(
-                **{x.name: field_value_list[x.value] for x in FEF}
+                **{
+                    x.name: recived_fields_map[x.value]
+                    for x in FEF
+                    if x.value in recived_fields_map
+                }
             )
         except ValidationError as e:
             return Response(
@@ -147,7 +151,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
 
         # Check if there is a miss match between the fields provided and the ones extracted from the file
         extracted_fields = parse_file(geodata_file.geodata_file.path)
-        differences = extracted_fields.compare(file_fields_recived)
+        differences = compare_dict_values(extracted_fields.dump_fields(), file_fields_recived.dump_fields())
         if len(differences) > 0:
             return Response(
                 {
@@ -159,7 +163,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
 
         # Get build the xml file
         result_tree, fields_not_registered = fill_xml_template(
-            product_type, [kv for kv in field_value_list.items()]
+            product_type, [kv for kv in recived_fields_map.items()]
         )
 
         with NamedTemporaryFile(suffix=".xml") as temp_file:

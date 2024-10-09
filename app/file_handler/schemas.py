@@ -6,7 +6,6 @@ from pydantic import (
     Field,
 )
 from core.fields import FileGeoDataFields as FEF
-from numpy import allclose
 
 
 class FileExtractedFields(BaseModel):
@@ -63,20 +62,3 @@ class FileExtractedFields(BaseModel):
 
     def dump_fields(self):
         return {FEF[name].value: value for name, value in self if value is not None}
-
-    @classmethod
-    def _compare(cls, v1, v2) -> bool:
-        if isinstance(v1, float) and isinstance(v2, float):
-            return allclose(v1, v2)
-        else:
-            return v1 == v2
-
-    def compare(self, other) -> dict:
-        differences = {}
-
-        other_dict = other.dump_fields()
-        for key, v1 in self.dump_fields().items():
-            if not self._compare(v1, other_dict[key]):
-                differences[key] = f"{v1} != {other_dict[key]}"
-
-        return differences
