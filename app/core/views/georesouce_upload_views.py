@@ -176,7 +176,10 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
             )  # TODO: get a real file name
 
         return Response(
-            {"fields_not_registered": fields_not_registered},
+            {
+                "metadata_file": File(geodata_file.metadata_file),
+                "fields_not_registered": fields_not_registered
+            },
             status=status.HTTP_201_CREATED,
         )
 
