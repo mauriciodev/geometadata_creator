@@ -26,16 +26,7 @@ class MetadataFieldSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MetadataFormField
-        fields = ("label", "value")
-
-    def validate(self, attrs):
-        """Validate that the labels are in the table"""
-        label = attrs["label"]
-        if not ProductType.objects.filter(name=label).exists():
-            serializers.ValidationError(
-                f"'{label}' is not registreered as a valid product type."
-            )
-        return super().validate(attrs)
+        fields = ("iso_xml_path", "value")
 
 
 class BuildMetadataSerializer(serializers.Serializer):
@@ -45,7 +36,8 @@ class BuildMetadataSerializer(serializers.Serializer):
 
 class SendXMLSerializer(serializers.ModelSerializer):
     metadata_file = serializers.FileField()
+    product_type = serializers.IntegerField()
 
     class Meta:
         model = GeospatialResource
-        fields = ("metadata_file",)
+        fields = ("metadata_file", "product_type")

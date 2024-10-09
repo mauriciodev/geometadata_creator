@@ -64,7 +64,7 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         url = f"/geoproduct/{self.obj.id}/build_metadata/"
         payload = {
             "metadata_fields": [
-                {"label": field.iso_xml_path, "value": "test"}
+                {"iso_xml_path": field.iso_xml_path, "value": "test"}
                 for field in ProductType.objects.get(
                     pk=self.product_type_id
                 ).metadata_fields.all()
@@ -106,8 +106,8 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         )
         payload = {
             "metadata_fields": [
-                {"label": label, "value": wrong_fields.get(label, "123")}
-                for label in middle_dict
+                {"iso_xml_path": xpath, "value": wrong_fields.get(xpath, "123")}
+                for xpath in middle_dict
             ],
             "product_type": self.product_type_id,
         }
@@ -136,8 +136,8 @@ class GeospatialResourceUploadEndpointTests(APITestCase):
         )
         payload = {
             "metadata_fields": [
-                {"label": label, "value": wrong_fields.get(label, "123")}
-                for label in middle_dict
+                {"iso_xml_path": xpath, "value": wrong_fields.get(xpath, "123")}
+                for xpath in middle_dict
             ],
             "product_type": self.product_type_id,
         }
