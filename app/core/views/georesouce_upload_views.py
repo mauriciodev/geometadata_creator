@@ -109,8 +109,9 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
 
         # Get the product type
         pt_id = int(serializer.validated_data["product_type"])  # type: ignore
-        product_type = ProductType.objects.get(pk=pt_id)
-        if product_type is None:
+        try:
+            product_type = ProductType.objects.get(pk=pt_id)
+        except ProductType.DoesNotExist:
             return Response(
                 {"error": ErrorMessages.pt_not_supported},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -151,7 +152,9 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
 
         # Check if there is a miss match between the fields provided and the ones extracted from the file
         extracted_fields = parse_file(geodata_file.geodata_file.path)
-        differences = compare_dict_values(extracted_fields.dump_fields(), file_fields_recived.dump_fields())
+        differences = compare_dict_values(
+            extracted_fields.dump_fields(), file_fields_recived.dump_fields()
+        )
         if len(differences) > 0:
             return Response(
                 {
@@ -178,7 +181,7 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         return Response(
             {
                 "metadata_file": File(geodata_file.metadata_file),
-                "fields_not_registered": fields_not_registered
+                "fields_not_registered": fields_not_registered,
             },
             status=status.HTTP_201_CREATED,
         )
@@ -212,11 +215,15 @@ class GeoresourceUploadAPIView(mixins.CreateModelMixin, GenericViewSet):
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Finds the product_type based on the xml field
+        # Get the product type
+        pt_id = int(serializer.validated_data["product_type"])  # type: ignore
         try:
-            product_type = find_product_type_from_xml(xml_tree)
-        except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            product_type = ProductType.objects.get(pk=pt_id)
+        except ProductType.DoesNotExist:
+            return Response(
+                {"error": ErrorMessages.pt_not_supported},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
         # Get the fields from the file
         collected_fields, missing_fields = validate_fields_based_on_product_type(

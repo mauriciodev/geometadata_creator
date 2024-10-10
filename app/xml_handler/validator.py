@@ -3,7 +3,6 @@ from core.fields import UniversalFields as UF
 from lxml import etree as et
 from xml_handler.constructor import old_path_to_search_string
 from core.models import ProductType
-from core.fields import UniversalFields as UF
 
 
 def validate_file_integrity(xml_path: str | Path) -> et._ElementTree:
@@ -22,8 +21,8 @@ def validate_file_integrity(xml_path: str | Path) -> et._ElementTree:
 
     try:
         xml_tree = et.parse(xml_path)
-    except:
-        raise Exception("Problema com a estrutura do xml.")
+    except Exception as _:
+        raise ValueError("O arquivo não é um xml válido.")
 
     return xml_tree
 
