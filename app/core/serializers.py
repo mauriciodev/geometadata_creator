@@ -36,7 +36,7 @@ class BuildMetadataSerializer(serializers.Serializer):
 
 class SendXMLSerializer(serializers.ModelSerializer):
     metadata_file = serializers.FileField()
-    product_type = serializers.StringRelatedField()
+    product_type = serializers.CharField()
 
     class Meta:
         model = GeospatialResource
