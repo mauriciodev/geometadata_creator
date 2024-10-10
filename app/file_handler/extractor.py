@@ -37,5 +37,5 @@ def extract_raster_metadata(geodata_file: str):
                 data_representation_type="Matricial",
             )
         return response
-    except Exception as _:
-        raise Exception("Erro na hora de ler o arquivo")
+    except Exception as e:
+        raise e
