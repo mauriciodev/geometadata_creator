@@ -41,6 +41,19 @@ services:
   #     - gmd_creator
   #     - pycsw
   #
+  gmd_editor: #this is the fronted app.
+    image: gmd_editor/gmd_editor
+    build:
+      context: ./geometadata_editor
+      dockerfile: Dockerfile
+    environment:
+        VITE_GMD_CREATOR_URL: "http://localhost:8000" #${VITE_APP_URL}
+    ports:
+      - "5173:5173"
+    volumes: #these volumes were added for development purposes. Django can reload after file changes.
+      - "./geometadata_editor/src/:/app/src"
+
+
 
   db: #Spatial database
         restart: always
