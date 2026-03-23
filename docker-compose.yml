@@ -23,37 +23,33 @@ services:
         db:
             condition: service_healthy
 
-  # nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
-  #   container_name: nginx
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   #volumes:
-  #   #- '${PWD}/configs/nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro'
-  #   #- '/var/run/docker.sock:/tmp/docker.sock:ro'
-  #   #- '/etc/apache2/ssl:/etc/nginx/certs'
-  #   restart: always
-  #   logging:
-  #     options:
-  #       max-size: 1g
-  #   image: nginx
-  #   depends_on: # NGINX will not run if the containers of the reverse proxy are not running.
-  #     - gmd_creator
-  #     - pycsw
-  #
+  nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
+    container_name: nginx
+    ports:
+    - "80:80"
+    #- "443:443"
+    volumes:
+    #- '${PWD}/configs/nginx.conf:/etc/nginx/conf.d/default.conf:ro'
+    - '${PWD}/configs/nginx.conf:/etc/nginx/nginx.conf:ro'
+    #- '/var/run/docker.sock:/tmp/docker.sock:ro'
+    #- '/etc/apache2/ssl:/etc/nginx/certs'
+    restart: always
+    logging:
+        options:
+            max-size: 1g
+    image: nginx
+
   gmd_editor: #this is the fronted app.
     image: gmd_editor/gmd_editor
     build:
       context: ./geometadata_editor
       dockerfile: Dockerfile
     environment:
-        VITE_GMD_CREATOR_URL: "http://localhost:8000" #${VITE_APP_URL}
+        VITE_GMD_CREATOR_URL: "http://localhost/api" #${VITE_APP_URL}
     ports:
       - "5173:5173"
     volumes: #these volumes were added for development purposes. Django can reload after file changes.
       - "./geometadata_editor/src/:/app/src"
-
-
 
   db: #Spatial database
         restart: always
