@@ -1,0 +1,3 @@
+[submodule "geometadata_editor"]
+	path = geometadata_editor
+	url = git@github.com:pedro-kovalczuk/geometadata_editor.git

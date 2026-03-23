@@ -20,7 +20,8 @@ services:
       - DB_USER=postgres
       - DB_PASS=mypass
     depends_on:
-      - db
+        db:
+            condition: service_healthy
 
   # nginx: #Reverse proxy: provides an external URL for the containers. This is the MAIN entry point that actually responds on port 80.
   #   container_name: nginx
