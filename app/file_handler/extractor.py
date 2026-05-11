@@ -10,6 +10,9 @@ def parse_file(geodata_file: str) -> FileExtractedFields:
     match suffix:
         case ".tiff" | ".tif":
             return extract_raster_metadata(geodata_file)
+        case ".gpkg" | ".zip":
+            # TODO: PFC2026
+            return extract_vector_metadata(geodata_file)   
         case _:
             raise TypeError("Arquivo não é do tipo geoespacial")
 
@@ -39,3 +42,7 @@ def extract_raster_metadata(geodata_file: str):
         return response
     except Exception as e:
         raise e
+
+def extract_vector_metadata(geodata_file: str):
+    # TODO PFC2026
+    pass
