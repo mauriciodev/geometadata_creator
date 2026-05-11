@@ -12,8 +12,7 @@ ENV POETRY_NO_INTERACTION=1 \
     VIRTUAL_ENV=/py \
     PATH="py/bin:$PATH"
 
-COPY ./app /app
-WORKDIR /app
+
 EXPOSE 8000
 
 COPY pyproject.toml poetry.lock ./
@@ -30,3 +29,15 @@ RUN rm -rf /tmp && \
 
 
 ENV PATH="/py/bin:$PATH"
+
+
+
+COPY ./app /app
+WORKDIR /app
+RUN apk add --no-cache netcat-openbsd
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+#CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
