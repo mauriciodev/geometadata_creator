@@ -15,7 +15,7 @@ from django.conf import settings
 from owslib import csw
 
 from core.models import GeospatialResource, ProductType, MetadataFormField
-
+from core.models import FeatureCatalog, FeatureCatalogClass
 
 class geospatial_resource_Admin(ExtraButtonsMixin, SimpleHistoryAdmin):
     def has_metadata(self, obj):
@@ -164,3 +164,5 @@ admin.site.register(GeospatialResource, geospatial_resource_Admin)
 
 admin.site.register(ProductType)
 admin.site.register(MetadataFormField)
+admin.site.register(FeatureCatalog)
+admin.site.register(FeatureCatalogClass)
