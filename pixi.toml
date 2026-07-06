@@ -1,0 +1,28 @@
+[workspace]
+authors = ["viniciusbrito1 <viniciusbrito13@hotmail.com>"]
+channels = ["conda-forge"]
+name = "geometadata_creator"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+lxml="*"
+django="*"
+djangorestframework="*"
+pydantic="*"
+markdown="*"
+django-filter="*"
+django-guardian="*"
+owslib="*"
+django-simple-history="*"
+django-constance="*"
+drf-spectacular="*"
+rasterio="*"
+django-cors-headers="*"
+psycopg2="*"
+geopandas = ">=1.1.4,<2"
+
+[pypi-dependencies]
+django-admin-extra-buttons = ">=2.2.1, <3"

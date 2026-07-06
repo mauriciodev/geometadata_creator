@@ -166,3 +166,6 @@ cython_debug/
 
 # Stop tracking the migrations
 /app/core/migrations/
+# pixi environments
+.pixi/*
+!.pixi/config.toml
