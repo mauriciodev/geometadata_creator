@@ -24,4 +24,10 @@ class FeatureCatalogClass(models.Model):
     id = models.BigAutoField(primary_key=True)
     feature_catalog = models.ForeignKey(FeatureCatalog, on_delete=models.CASCADE, related_name="classes")
     name = models.CharField(max_length=200)
+    category = models.CharField(
+        max_length=10,
+        blank=True,
+        default="",
+        help_text="Layer name prefix for the class category (e.g. hid, rel, tra).",
+    )
     description = models.TextField()

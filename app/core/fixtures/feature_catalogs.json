@@ -1,0 +1,1084 @@
+[
+  {
+    "model": "core.featurecatalog",
+    "pk": 1,
+    "fields": {
+      "title": "ET-EDGV 3.0",
+      "abreviation": "ET-EDGV 3.0",
+      "date": "2018-05-20",
+      "edition": "3.0",
+      "edition_date": "2018-05-20",
+      "series": "Perfil MapTopoPE - Mapeamento Topografico de Pequena Escala"
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 1,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pista_Ponto_Pouso",
+      "category": "aer",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 2,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Galeria_Bueiro",
+      "category": "dut",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 3,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Duto",
+      "category": "dut",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 4,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Equip_Agropec",
+      "category": "eco",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 5,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Ext_Mineral",
+      "category": "eco",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 6,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Plataforma",
+      "category": "eco",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 7,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Aerogerador",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 8,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Antena_Comunic",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 9,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Casa_De_Forca",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 10,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Central_Geradora_Eolica",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 11,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Est_Gerad_Energia_Eletrica",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 12,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Grupo_Transformadores",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 13,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Hidreletrica",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 14,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Subest_Transm_Distrib_Energia_Eletrica",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 15,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Termeletrica",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 16,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Torre_Comunic",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 17,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Torre_Energia",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 18,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Comunic",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 19,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Energia",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 20,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Zona_Linhas_Energia_Comunicacao",
+      "category": "enc",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 21,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Cremalheira",
+      "category": "fer",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 22,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Girador_Ferroviario",
+      "category": "fer",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 23,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Ferroviario",
+      "category": "fer",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 24,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Atracadouro_Terminal",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 25,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Eclusa",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 26,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Fundeadouro",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 27,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Obstaculo_Navegacao",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 28,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Sinalizacao",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 29,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Hidroviario",
+      "category": "hdv",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 30,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Area_Umida",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 31,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Banco_Areia",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 32,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Barragem",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 33,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Canal",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 34,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Comporta",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 35,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Corredeira",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 36,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Dique",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 37,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Fonte_Dagua",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 38,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Foz_Maritima",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 39,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Ilha",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 40,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Massa_Dagua",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 41,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Quebramar_Molhe",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 42,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Queda_Dagua",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 43,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Recife",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 44,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Rocha_Em_Agua",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 45,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Sumidouro_Vertedouro",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 46,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Terreno_Sujeito_Inundacao",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 47,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Drenagem",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 48,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Vala",
+      "category": "hid",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 49,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Area_Densamente_Edificada",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 50,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Area_Pub_Militar",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 51,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Area_Urbana_Isolada",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 52,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Distrito",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 53,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Limite_Legal",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 54,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Municipio",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 55,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Nome_Local",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 56,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pais",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 57,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Posic_Geo_Localidade",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 58,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Terra_Indigena",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 59,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Terra_Publica",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 60,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Unidade_Conservacao",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 61,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Unidade_Federacao",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 62,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Unidade_Protecao_Integral",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 63,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Unidade_Uso_Sustentavel",
+      "category": "lml",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 64,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Marco_De_Limite",
+      "category": "pto",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 65,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pto_Est_Med_Fenomenos",
+      "category": "pto",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 66,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pto_Geod_Topo_Controle",
+      "category": "pto",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 67,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pto_Ref_Geod_Topo",
+      "category": "pto",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 68,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Alteracao_Fisiografica_Antropica",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 69,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Aterro",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 70,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Corte",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 71,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Curva_Batimetrica",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 72,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Curva_Nivel",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 73,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Dolina",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 74,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Duna",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 75,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Elemento_Fisiografico_Natural",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 76,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Gruta_Caverna",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 77,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Pico",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 78,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Ponto_Cotado_Altimetrico",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 79,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Ponto_Cotado_Batimetrico",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 80,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Rocha",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 81,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Terreno_Exposto",
+      "category": "rel",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 82,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trecho_Rodoviario",
+      "category": "rod",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 83,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Barragem_Calcadao",
+      "category": "snb",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 84,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Dep_Abast_Agua",
+      "category": "snb",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 85,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Caminho_Aereo",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 86,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Caminho_Carrocavel",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 87,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Entroncamento_Pto",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 88,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Funicular",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 89,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Passagem_Elevada_Viaduto",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 90,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Passagem_Nivel",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 91,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Patio",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 92,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Ponte",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 93,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Travessia",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 94,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Travessia_Pedestre",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 95,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Trilha_Picada",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 96,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Tunel",
+      "category": "tra",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 97,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Brejo_Pantano",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 98,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Caatinga",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 99,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Campinarana",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 100,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Campo",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 101,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Cerrado",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 102,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Floresta",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 103,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Mangue",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 104,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Reflorestamento",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 105,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Veg_Area_Contato",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 106,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Veg_Cultivada",
+      "category": "veg",
+      "description": ""
+    }
+  },
+  {
+    "model": "core.featurecatalogclass",
+    "pk": 107,
+    "fields": {
+      "feature_catalog": 1,
+      "name": "Veg_Restinga",
+      "category": "veg",
+      "description": ""
+    }
+  }
+]

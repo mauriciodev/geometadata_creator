@@ -302,6 +302,34 @@
             </gmd:contentType>
         </gmd:MD_CoverageDescription>
     </gmd:contentInfo>
+    <gmd:contentInfo>
+        <gmd:MD_FeatureCatalogueDescription>
+            <gmd:includedWithDataset>
+                <gco:Boolean>true</gco:Boolean>
+            </gmd:includedWithDataset>
+            <gmd:featureCatalogueCitation>
+                <gmd:CI_Citation>
+                    <gmd:title>
+                        <gco:CharacterString>ET-EDGV 3.0</gco:CharacterString>
+                    </gmd:title>
+                    <gmd:date>
+                        <gmd:CI_Date>
+                            <gmd:date>
+                                <gco:Date>2018-05-20</gco:Date>
+                            </gmd:date>
+                            <gmd:dateType>
+                                <gmd:CI_DateTypeCode
+                                    codeList="./resources/codeList.xml#CI_DateTypeCode" codeListValue="publication">publication</gmd:CI_DateTypeCode>
+                            </gmd:dateType>
+                        </gmd:CI_Date>
+                    </gmd:date>
+                    <gmd:edition>
+                        <gco:CharacterString>3.0</gco:CharacterString>
+                    </gmd:edition>
+                </gmd:CI_Citation>
+            </gmd:featureCatalogueCitation>
+        </gmd:MD_FeatureCatalogueDescription>
+    </gmd:contentInfo>
     <gmd:distributionInfo>
         <gmd:MD_Distribution>
             <gmd:distributionFormat>
