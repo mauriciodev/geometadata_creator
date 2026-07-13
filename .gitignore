@@ -169,3 +169,12 @@ cython_debug/
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+examples/05_SCN_Carta_Topografica_Vetorial_EDGV_3.0-ÁGUAVERMELHA-SF-23-V-C-IV-3-50.000.zip
+examples/SCN_Carta_Topografica_Matricial-PLANOPILOTO-SD-23-Y-C-IV-3-NO-25.000.tif
+examples/drive-download-20260713T162015Z-2-001.zip
+examples/SCN_Carta_Topografica_Vetorial-LAGOPARANOÁ-SD-23-Y-C-IV-3-NE-25.000.zip
+examples/SCN_Carta_Topografica_Vetorial-LAURODEFREITAS-SD-24-X-A-V-3-SE-25.000.zip
+examples/SCN_Carta_Topografica_Vetorial-MACAPÁ-NA-22-Y-D-VI-4-SE-25.000.zip
+examples/SCN_Carta_Topografica_Vetorial-MACAPÁ-O-NA-22-Y-D-VI-4-SO-25.000.zip
+examples/SCN_Carta_Topografica_Vetorial-PLANOPILOTO-SD-23-Y-C-IV-3-NO-25.000.zip
+examples/SCN_Carta_Topografica_Vetorial-SALVADOR-SD-24-X-A-V-3-SO-25.000.zip
