@@ -15,6 +15,8 @@ class FeatureCatalog(models.Model):
     edition = models.CharField(max_length=20)
     edition_date = models.DateField()
     series = models.CharField(max_length=200)
+    def __str__(self):
+        return f"{self.abreviation} {self.edition}"
 
 class FeatureCatalogClass(models.Model):
     """
@@ -31,3 +33,6 @@ class FeatureCatalogClass(models.Model):
         help_text="Layer name prefix for the class category (e.g. hid, rel, tra).",
     )
     description = models.TextField()
+
+    def __str__(self):
+        return f"{self.category} - {self.name}"

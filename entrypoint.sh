@@ -20,7 +20,9 @@ if [ ! -f "$INIT_FLAG" ]; then
   python manage.py collectstatic  --noinput
   python manage.py makemigrations --noinput
   python manage.py migrate --noinput
-  python manage.py loaddata core/fixtures/form_fields.json core/fixtures/index_map.json
+  python manage.py loaddata core/fixtures/form_fields.json
+  python manage.py loaddata core/fixtures/index_map.json
+  python manage.py loaddata core/fixtures/feature_catalogs.json
 
   touch "$INIT_FLAG"
 
