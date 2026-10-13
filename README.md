@@ -1,4 +1,6 @@
-# geometadata_creator
+# geometadata_creator - An academic software tool for generating geospatial metadata for the Brazilian Geographic Service.
+This software provides a web application for creating geospatial products metadata in XML, following Brazilian standards: ET-PCDG, ET-EDGV, Perfil MGB.
+Data and metadata are stored together and published in a CSW service (PyCSW).
 
 ## Docker
 
